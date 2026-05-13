@@ -1,0 +1,299 @@
+let currentLesson = null;
+let currentLevel = 'A';
+
+function initLibrary() {
+  renderBookFilters();
+  renderBookSections('all');
+}
+
+function renderBookFilters() {
+  const container = document.getElementById('bookFilters');
+  const books = Object.keys(BOOK_THEMES);
+  container.innerHTML = `
+    <button class="active" onclick="renderBookSections('all', this)">All</button>
+    ${books.map(book => `<button onclick="renderBookSections('${book}', this)">${book}</button>`).join('')}
+  `;
+}
+
+function renderBookSections(filterBook = 'all', btn = null) {
+  if (btn) {
+    document.querySelectorAll('#bookFilters button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  const container = document.getElementById('bookSections');
+  const books = Object.keys(BOOK_THEMES).filter(book => filterBook === 'all' || filterBook === book);
+
+  container.innerHTML = books.map(book => {
+    const theme = BOOK_THEMES[book];
+    const lessons = LESSON_LIBRARY.filter(item => item.book === book);
+
+    return `
+      <section class="book-section" style="--book-color:${theme.color}; --book-soft:${theme.soft}; --book-dark:${theme.dark}; border-left:8px solid ${theme.color};">
+        <div class="section-title" style="color:${theme.dark}; justify-content:space-between;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:44px; height:44px; border-radius:16px; display:grid; place-items:center; background:${theme.soft}; color:${theme.dark}; font-size:24px;">${theme.icon}</div>
+            <h2 style="margin:0;">《跨越丝路》${book}</h2>
+          </div>
+          <span style="font-size:14px; color:#7e6d66;">${theme.subtitle}</span>
+        </div>
+
+        <div class="lesson-grid">
+          ${lessons.length ? lessons.map(lesson => renderLessonCard(lesson, theme)).join('') : renderComingSoonCard(book, theme)}
+        </div>
+      </section>
+    `;
+  }).join('');
+}
+
+function renderLessonCard(lesson, theme) {
+  return `
+    <a class="lesson-card" href="#${lesson.id}" onclick="openLesson('${lesson.id}'); return false;" style="background:linear-gradient(180deg,#fff,${theme.soft}); border:1px solid ${theme.color}33;">
+      <div class="lesson-number" style="background:rgba(255,255,255,.75); color:${theme.dark}; border:1px solid ${theme.color}33;">${lesson.lesson}</div>
+      <div class="lesson-title">${lesson.title}</div>
+      <div class="lesson-pinyin">${lesson.pinyin}</div>
+      <div class="lesson-desc">${lesson.description}</div>
+      <div class="status" style="background:${theme.color}22; color:${theme.dark};">${lesson.status}</div>
+      <div style="position:absolute; right:16px; bottom:10px; font-size:60px; opacity:.16;">${lesson.icon}</div>
+    </a>
+  `;
+}
+
+function renderComingSoonCard(book, theme) {
+  return `
+    <div class="lesson-card" style="opacity:.55; background:linear-gradient(180deg,#fff,${theme.soft}); border:1px solid ${theme.color}33;">
+      <div class="lesson-number" style="background:rgba(255,255,255,.75); color:${theme.dark};">Coming Soon</div>
+      <div class="lesson-title">${book} Lessons</div>
+      <div class="lesson-pinyin">Coming soon</div>
+      <div class="lesson-desc">Lessons will appear here after they are added.</div>
+      <div class="status" style="background:${theme.color}22; color:${theme.dark};">Coming Soon</div>
+    </div>
+  `;
+}
+
+function openLesson(lessonId) {
+  const lesson = window.LESSONS && window.LESSONS[lessonId];
+  if (!lesson) {
+    alert(`Lesson data not found: ${lessonId}`);
+    return;
+  }
+
+  currentLesson = lesson;
+  currentLevel = 'A';
+
+  document.getElementById('homeView').classList.add('hidden');
+  document.getElementById('homeHero').classList.add('hidden');
+  document.getElementById('lessonView').classList.remove('hidden');
+  document.body.classList.remove('hide-pinyin', 'hide-translation');
+
+  applyLessonTheme(lesson);
+  renderLessonHero(lesson);
+  renderKeyWords(lesson);
+  renderKeySentences(lesson);
+  renderPractice(lesson);
+  renderChallenge(lesson);
+  showLevel('A', document.querySelector('#lessonToolbar button'));
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function applyLessonTheme(lesson) {
+  const theme = BOOK_THEMES[lesson.book] || BOOK_THEMES['1A'];
+  document.documentElement.style.setProperty('--active-color', theme.color);
+  document.documentElement.style.setProperty('--active-soft', theme.soft);
+  document.documentElement.style.setProperty('--active-dark', theme.dark);
+}
+
+function goHome() {
+  currentLesson = null;
+  document.getElementById('lessonView').classList.add('hidden');
+  document.getElementById('homeView').classList.remove('hidden');
+  document.getElementById('homeHero').classList.remove('hidden');
+  hideMeaning();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderLessonHero(lesson) {
+  const theme = BOOK_THEMES[lesson.book] || BOOK_THEMES['1A'];
+  const hero = document.getElementById('lessonHero');
+  hero.style.background = `linear-gradient(135deg, #ffffff 0%, ${theme.soft} 50%, ${theme.color}66 100%)`;
+  hero.style.color = theme.dark;
+
+  hero.innerHTML = `
+    <div class="brand-tag" style="color:${theme.dark};">📘 《跨越丝路》${lesson.book} · ${lesson.lesson} · Reading</div>
+    <div style="display:flex; justify-content:center; margin-top:6px; flex-direction:column; align-items:center;">
+      <div style="font-size:14px; letter-spacing:3px; color:${theme.dark}; margin-bottom:10px; font-weight:800; text-transform:uppercase;">${lesson.lesson}</div>
+      <div class="line" style="gap:16px; align-items:flex-end; justify-content:center; margin:0; background:rgba(255,255,255,.48); padding:16px 26px; border-radius:24px; box-shadow:0 8px 20px rgba(90,68,52,.08);">
+        ${renderTokens(lesson.titleTokens || [])}
+      </div>
+    </div>
+    <div class="subtitle" style="color:${theme.dark};">
+      <b>Theme:</b> ${lesson.theme}<br>
+      <b>Learning Goal:</b> ${lesson.goal}
+    </div>
+    <div class="translation" style="display:inline-block; margin-top:14px; background:rgba(255,255,255,.55); color:${theme.dark}; font-size:14px;">${lesson.heroTranslation || ''}</div>
+  `;
+}
+
+function renderKeyWords(lesson) {
+  const container = document.getElementById('keyWords');
+  container.innerHTML = lesson.keyWords.map(word => `
+    <div class="key-card" onclick="speak('${escapeForAttribute(word.text)}')">
+      <span class="emoji">${word.emoji || '🔹'}</span>
+      <div class="small-pinyin">${word.pinyin}</div>
+      <div class="hanzi">${word.text}</div>
+      <div class="translation">${word.translation}</div>
+    </div>
+  `).join('');
+}
+
+function renderKeySentences(lesson) {
+  const container = document.getElementById('keySentences');
+  container.innerHTML = lesson.keySentences.map(sentence => `
+    <div class="sentence-card" onclick="speak('${escapeForAttribute(sentence.speak || flattenTokens(sentence.tokens))}')">
+      ${renderLine(sentence.tokens)}
+      <div class="translation">${sentence.translation}</div>
+    </div>
+  `).join('');
+}
+
+function renderPractice(lesson) {
+  const container = document.getElementById('practiceGrid');
+  container.innerHTML = lesson.practice.map(item => `
+    <div class="practice-question">
+      <strong>${item.question}</strong>
+      <span class="inline-pinyin">${item.pinyin || ''}</span>
+      <div class="translation">${item.translation || ''}</div>
+      ${item.prompt ? `<p><b>${item.prompt}</b><span class="inline-pinyin">${item.promptPinyin || ''}</span></p>` : ''}
+      <div class="choices">
+        ${item.choices.map(choice => `
+          <span class="choice" onclick="check(this, ${choice.correct ? 'true' : 'false'})">
+            ${choice.text}${choice.pinyin ? `<br><span class="inline-pinyin">${choice.pinyin}</span>` : ''}
+          </span>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderChallenge(lesson) {
+  const container = document.getElementById('challengeBox');
+  container.innerHTML = `
+    <h2 class="section-title">🎯 Challenge：我来说一说</h2>
+    ${lesson.challenge.lines.map(tokens => renderLine(tokens)).join('')}
+    <div class="translation">${lesson.challenge.translation}</div>
+    <div class="tip">${lesson.challenge.tip}</div>
+  `;
+}
+
+function showLevel(level, btn) {
+  if (!currentLesson) return;
+
+  currentLevel = level;
+  document.querySelectorAll('#lessonToolbar button').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  const data = currentLesson.readings[level];
+  const html = `
+    <div class="level-label">${data.label}</div>
+    ${data.lines.map(tokens => renderLine(tokens, true)).join('')}
+    <div class="translation">${data.translation}</div>
+    <div class="tip">${data.tip}</div>
+  `;
+  document.getElementById('reading').innerHTML = html;
+  hideMeaning();
+}
+
+function renderLine(tokens, clickable = false) {
+  return `<div class="line">${renderTokens(tokens, clickable)}</div>`;
+}
+
+function renderTokens(tokens, clickable = false) {
+  return tokens.map(t => {
+    if (t.pause) return `<span class="pause">/</span>`;
+    if (t.blank) return `<span class="fill"></span>`;
+    if (!t.py && /^[。，？：,.!?]$/.test(t.hz || '')) return `<span class="punct">${t.hz}</span>`;
+
+    const meaning = currentLesson && currentLesson.meanings ? currentLesson.meanings[t.hz] : '';
+    const clickAttr = clickable && meaning ? `onclick="showMeaning(event, '${escapeForAttribute(meaning)}')"` : '';
+
+    return `
+      <span class="token" ${clickAttr}>
+        <span class="token-pinyin">${t.py || ''}</span>
+        <span class="token-hanzi ${t.cls || ''}">${t.hz || ''}</span>
+      </span>
+    `;
+  }).join('');
+}
+
+function flattenTokens(tokens) {
+  return tokens.map(t => t.hz || '').join('').replace(/[/]/g, '');
+}
+
+function speakReading() {
+  if (!currentLesson) return;
+  const lines = currentLesson.readings[currentLevel].lines;
+  speak(lines.map(flattenTokens).join(' '));
+}
+
+function speak(text) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'zh-CN';
+    utterance.rate = 0.72;
+    window.speechSynthesis.speak(utterance);
+  } else {
+    alert('This browser does not support speech synthesis.');
+  }
+}
+
+function togglePinyin() {
+  document.body.classList.toggle('hide-pinyin');
+  hideMeaning();
+}
+
+function toggleTranslation() {
+  document.body.classList.toggle('hide-translation');
+  hideMeaning();
+}
+
+function togglePageFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+function showMeaning(event, meaning) {
+  event.stopPropagation();
+  const pop = document.getElementById('meaningPop');
+  pop.innerHTML = meaning;
+  pop.style.display = 'block';
+
+  const rect = event.currentTarget.getBoundingClientRect();
+  const left = Math.min(rect.left, window.innerWidth - 280);
+  const top = rect.bottom + 8;
+
+  pop.style.left = `${Math.max(12, left)}px`;
+  pop.style.top = `${top}px`;
+}
+
+function hideMeaning() {
+  const pop = document.getElementById('meaningPop');
+  if (pop) pop.style.display = 'none';
+}
+
+function check(el, isCorrect) {
+  const siblings = el.parentElement.querySelectorAll('.choice');
+  siblings.forEach(s => s.classList.remove('correct', 'wrong'));
+  el.classList.add(isCorrect ? 'correct' : 'wrong');
+}
+
+function escapeForAttribute(text) {
+  return String(text).replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+}
+
+document.addEventListener('click', hideMeaning);
+window.addEventListener('DOMContentLoaded', initLibrary);

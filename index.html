@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>跨越丝路 Reading Library</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="hero" id="homeHero">
+      <div class="brand-tag">Chinese Reading Library</div>
+      <h1>跨越丝路<br />Reading Library</h1>
+      <p class="subtitle">
+        Levelled Chinese reading materials for students. Choose a lesson, read with pinyin, listen, and click words to check meanings.
+      </p>
+    </section>
+
+    <section id="homeView">
+      <div class="toolbar" id="bookFilters"></div>
+      <div id="bookSections"></div>
+
+      <div class="teacher-note">
+        <strong>Teacher note:</strong> This library is data-driven. To add a new lesson, add one lesson file in the <code>lessons</code> folder and register it in <code>data.js</code>.
+      </div>
+    </section>
+
+    <section id="lessonView" class="hidden">
+      <div class="top-nav">
+        <button onclick="goHome()">← Back to Library</button>
+        <button onclick="togglePageFullscreen()">🖥️ Full Screen</button>
+      </div>
+
+      <section class="lesson-hero" id="lessonHero"></section>
+
+      <div class="toolbar" id="lessonToolbar">
+        <button class="active" onclick="showLevel('A', this)">Level A 初级</button>
+        <button onclick="showLevel('B', this)">Level B 中级</button>
+        <button onclick="showLevel('C', this)">Level C 高级</button>
+        <button onclick="togglePinyin()">拼音 Pinyin ON / OFF</button>
+        <button onclick="toggleTranslation()">🌍 Translation ON / OFF</button>
+      </div>
+
+      <section class="card">
+        <h2 class="section-title">🔑 Key Words & Sentences</h2>
+        <p class="student-tip">Tap the words or sentences to listen and practice pronunciation before reading.</p>
+        <div class="key-grid" id="keyWords"></div>
+        <div class="sentence-bank" id="keySentences"></div>
+      </section>
+
+      <section class="card reading-card">
+        <h2 class="section-title">📖 Reading</h2>
+        <div class="reading-toolbar">
+          <div class="reading-toolbar-left">
+            <button onclick="speakReading()">🔊 听 Listen</button>
+          </div>
+        </div>
+        <div id="reading" class="reading-box"></div>
+        <div id="meaningPop" class="meaning-pop"></div>
+      </section>
+
+      <section class="card">
+        <h2 class="section-title">🧩 Practice：小练习</h2>
+        <div class="practice-grid" id="practiceGrid"></div>
+      </section>
+
+      <section class="card challenge" id="challengeBox"></section>
+    </section>
+
+    <div class="footer-note">跨越丝路 · 分层 Reading Library</div>
+    <div class="signature">
+      <div class="signature-inner"><span>小琴调</span></div>
+    </div>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="lessons/1A-lesson9.js"></script>
+  <script src="lessons/1C-lesson4.js"></script>
+  <script src="reader.js"></script>
+</body>
+</html>

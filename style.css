@@ -1,0 +1,368 @@
+:root {
+  --bg: #fbf7f1;
+  --card: #ffffff;
+  --ink: #2d2724;
+  --muted: #7e6d66;
+  --shadow: 0 14px 32px rgba(90, 68, 52, 0.12);
+
+  --theme-1a: #6BA892;
+  --theme-1a-soft: #e9f5ef;
+  --theme-1a-dark: #356b58;
+
+  --theme-1b: #6F8FC7;
+  --theme-1b-soft: #edf3ff;
+  --theme-1b-dark: #3f5f9a;
+
+  --theme-1c: #D88A63;
+  --theme-1c-soft: #fff0e8;
+  --theme-1c-dark: #8f4f32;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(107,168,146,.18), transparent 30%),
+    radial-gradient(circle at top right, rgba(111,143,199,.16), transparent 28%),
+    radial-gradient(circle at 50% 0%, rgba(216,138,99,.14), transparent 40%),
+    linear-gradient(180deg, #fffdf9 0%, var(--bg) 100%);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.page {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 34px 18px 50px;
+}
+
+.hero,
+.lesson-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 34px;
+  padding: 42px 30px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(90, 68, 52, 0.08);
+  text-align: center;
+}
+
+.hero {
+  background: linear-gradient(135deg, #f2fbf6 0%, #eef4ff 46%, #fff0e8 100%);
+}
+
+.lesson-hero {
+  margin-top: 20px;
+}
+
+.brand-tag {
+  display: inline-block;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.68);
+  color: #5f514a;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+}
+
+h1 {
+  margin: 0;
+  color: #4d3b35;
+  font-size: clamp(36px, 6vw, 64px);
+  line-height: 1.1;
+}
+
+.subtitle {
+  margin: 16px auto 0;
+  max-width: 760px;
+  color: #6b5b54;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.toolbar,
+.top-nav,
+.reading-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.toolbar,
+.top-nav {
+  margin: 24px 0;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: #fff;
+  color: #5f514a;
+  font-weight: 800;
+  box-shadow: 0 6px 14px rgba(90,68,52,.10);
+  transition: .2s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+button.active {
+  background: #4d3b35;
+  color: white;
+}
+
+.book-section {
+  margin-top: 28px;
+  background: rgba(255,255,255,.92);
+  border-radius: 30px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+  font-size: 26px;
+}
+
+.lesson-grid,
+.key-grid,
+.practice-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.lesson-grid {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.key-grid {
+  grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+}
+
+.practice-grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.lesson-card,
+.key-card,
+.practice-question,
+.card {
+  background: rgba(255,255,255,.94);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+}
+
+.lesson-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 20px;
+  transition: .22s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.lesson-card:hover {
+  transform: translateY(-4px);
+}
+
+.lesson-number,
+.status {
+  display: inline-block;
+  border-radius: 999px;
+  font-weight: 800;
+}
+
+.lesson-number {
+  padding: 5px 10px;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.status {
+  margin-top: 14px;
+  padding: 5px 9px;
+  font-size: 12px;
+}
+
+.lesson-title {
+  font-size: 25px;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.lesson-pinyin {
+  color: var(--muted);
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+.lesson-desc {
+  color: #735c54;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.card {
+  padding: 24px;
+  margin-top: 20px;
+}
+
+.student-tip,
+.teacher-note,
+.translation,
+.tip,
+.footer-note {
+  color: var(--muted);
+}
+
+.teacher-note {
+  margin-top: 24px;
+  padding: 18px 20px;
+  border-radius: 22px;
+  background: rgba(255,255,255,.78);
+}
+
+.key-card {
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.emoji {
+  font-size: 38px;
+  display: block;
+}
+
+.hanzi {
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.small-pinyin {
+  font-size: 20px;
+}
+
+.line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: flex-end;
+  margin: 18px 0;
+}
+
+.token {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 48px;
+  cursor: pointer;
+}
+
+.token-pinyin {
+  font-size: clamp(17px, 2vw, 26px);
+  color: #66766f;
+  font-weight: 700;
+}
+
+.token-hanzi,
+.punct {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 900;
+}
+
+.reading-box {
+  background: linear-gradient(180deg, #fff, #f8fffb);
+  border-radius: 28px;
+  padding: 32px;
+  min-height: 54vh;
+}
+
+.translation {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.72);
+}
+
+.meaning-pop {
+  position: fixed;
+  z-index: 2000;
+  max-width: 260px;
+  background: #fff;
+  border-radius: 18px;
+  padding: 12px 14px;
+  font-size: 18px;
+  font-weight: 800;
+  display: none;
+  box-shadow: 0 12px 28px rgba(58,101,82,.18);
+}
+
+.choice {
+  background: white;
+  border-radius: 16px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.challenge {
+  border-left: 6px solid var(--theme-1a);
+}
+
+.signature {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.signature-inner {
+  background: rgba(255,245,238,.75);
+  padding: 6px 12px;
+  border-radius: 12px;
+}
+
+.signature-inner span {
+  font-family: 'STLiti','KaiTi','Kaiti SC',serif;
+  font-size: 18px;
+  color: #9b6a58;
+}
+
+body.hide-pinyin .small-pinyin,
+body.hide-pinyin .token-pinyin,
+body.hide-pinyin .inline-pinyin {
+  display: none;
+}
+
+body.hide-translation .translation {
+  display: none;
+}
+
+@media (max-width: 620px) {
+  .hero,
+  .lesson-hero {
+    padding: 28px 18px;
+  }
+
+  .card,
+  .book-section {
+    padding: 18px;
+  }
+}
