@@ -34,7 +34,6 @@ function renderBookSections(filterBook = 'all', btn = null) {
 
   container.innerHTML = books.map(book => {
     const theme = BOOK_THEMES[book];
-
     const lessons = LESSON_LIBRARY.filter(item => item.book === book);
 
     return `
@@ -103,20 +102,11 @@ function renderLessonCard(lesson, theme) {
       </div>
 
       <div class="lesson-title">${lesson.title}</div>
-
-      <div class="lesson-pinyin">
-        ${lesson.pinyin}
-      </div>
-
-      <div class="lesson-desc">
-        ${lesson.description}
-      </div>
+      <div class="lesson-pinyin">${lesson.pinyin}</div>
+      <div class="lesson-desc">${lesson.description}</div>
 
       <div class="status"
-        style="
-          background:${theme.color}22;
-          color:${theme.dark};
-        ">
+        style="background:${theme.color}22; color:${theme.dark};">
         ${lesson.status}
       </div>
 
@@ -143,30 +133,16 @@ function renderComingSoonCard(book, theme) {
       ">
 
       <div class="lesson-number"
-        style="
-          background:rgba(255,255,255,.75);
-          color:${theme.dark};
-        ">
+        style="background:rgba(255,255,255,.75); color:${theme.dark};">
         Coming Soon
       </div>
 
-      <div class="lesson-title">
-        ${book} Lessons
-      </div>
-
-      <div class="lesson-pinyin">
-        Coming soon
-      </div>
-
-      <div class="lesson-desc">
-        Lessons will appear here after they are added.
-      </div>
+      <div class="lesson-title">${book} Lessons</div>
+      <div class="lesson-pinyin">Coming soon</div>
+      <div class="lesson-desc">Lessons will appear here after they are added.</div>
 
       <div class="status"
-        style="
-          background:${theme.color}22;
-          color:${theme.dark};
-        ">
+        style="background:${theme.color}22; color:${theme.dark};">
         Coming Soon
       </div>
     </div>
@@ -200,10 +176,7 @@ function openLesson(lessonId) {
 
   showLevel('A', document.querySelector('#lessonToolbar button'));
 
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function applyLessonTheme(lesson) {
@@ -222,27 +195,14 @@ function goHome() {
   document.getElementById('homeHero').classList.remove('hidden');
 
   hideMeaning();
-
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function renderLessonHero(lesson) {
   const theme = BOOK_THEMES[lesson.book] || BOOK_THEMES['1A'];
-
   const hero = document.getElementById('lessonHero');
 
-  hero.style.background = `
-    linear-gradient(
-      135deg,
-      #ffffff 0%,
-      ${theme.soft} 50%,
-      ${theme.color}66 100%
-    )
-  `;
-
+  hero.style.background = `linear-gradient(135deg, #ffffff 0%, ${theme.soft} 50%, ${theme.color}66 100%)`;
   hero.style.color = theme.dark;
 
   hero.innerHTML = `
@@ -250,36 +210,12 @@ function renderLessonHero(lesson) {
       📘 《跨越丝路》${lesson.book} · ${lesson.lesson} · Reading
     </div>
 
-    <div style="
-      display:flex;
-      justify-content:center;
-      margin-top:6px;
-      flex-direction:column;
-      align-items:center;
-    ">
-
-      <div style="
-        font-size:14px;
-        letter-spacing:3px;
-        color:${theme.dark};
-        margin-bottom:10px;
-        font-weight:800;
-        text-transform:uppercase;
-      ">
+    <div style="display:flex; justify-content:center; margin-top:6px; flex-direction:column; align-items:center;">
+      <div style="font-size:14px; letter-spacing:3px; color:${theme.dark}; margin-bottom:10px; font-weight:800; text-transform:uppercase;">
         ${lesson.lesson}
       </div>
 
-      <div class="line"
-        style="
-          gap:16px;
-          align-items:flex-end;
-          justify-content:center;
-          margin:0;
-          background:rgba(255,255,255,.48);
-          padding:16px 26px;
-          border-radius:24px;
-          box-shadow:0 8px 20px rgba(90,68,52,.08);
-        ">
+      <div class="line" style="gap:16px; align-items:flex-end; justify-content:center; margin:0; background:rgba(255,255,255,.48); padding:16px 26px; border-radius:24px; box-shadow:0 8px 20px rgba(90,68,52,.08);">
         ${renderTokens(lesson.titleTokens || [])}
       </div>
     </div>
@@ -289,14 +225,7 @@ function renderLessonHero(lesson) {
       <b>Learning Goal:</b> ${lesson.goal}
     </div>
 
-    <div class="translation"
-      style="
-        display:inline-block;
-        margin-top:14px;
-        background:rgba(255,255,255,.55);
-        color:${theme.dark};
-        font-size:14px;
-      ">
+    <div class="translation" style="display:inline-block; margin-top:14px; background:rgba(255,255,255,.55); color:${theme.dark}; font-size:14px;">
       ${lesson.heroTranslation || ''}
     </div>
   `;
@@ -306,22 +235,11 @@ function renderKeyWords(lesson) {
   const container = document.getElementById('keyWords');
 
   container.innerHTML = lesson.keyWords.map(word => `
-    <div class="key-card"
-      onclick="speak('${escapeForAttribute(word.text)}')">
-
+    <div class="key-card" onclick="speak('${escapeForAttribute(word.text)}')">
       <span class="emoji">${word.emoji || '🔹'}</span>
-
-      <div class="small-pinyin">
-        ${word.pinyin}
-      </div>
-
-      <div class="hanzi">
-        ${word.text}
-      </div>
-
-      <div class="translation">
-        ${word.translation}
-      </div>
+      <div class="small-pinyin">${word.pinyin}</div>
+      <div class="hanzi">${word.text}</div>
+      <div class="translation">${word.translation}</div>
     </div>
   `).join('');
 }
@@ -330,14 +248,9 @@ function renderKeySentences(lesson) {
   const container = document.getElementById('keySentences');
 
   container.innerHTML = lesson.keySentences.map(sentence => `
-    <div class="sentence-card"
-      onclick="speak('${escapeForAttribute(sentence.speak || flattenTokens(sentence.tokens))}')">
-
+    <div class="sentence-card" onclick="speak('${escapeForAttribute(sentence.speak || flattenTokens(sentence.tokens))}')">
       ${renderLine(sentence.tokens)}
-
-      <div class="translation">
-        ${sentence.translation}
-      </div>
+      <div class="translation">${sentence.translation}</div>
     </div>
   `).join('');
 }
@@ -347,39 +260,22 @@ function renderPractice(lesson) {
 
   container.innerHTML = lesson.practice.map(item => `
     <div class="practice-question">
-
       <strong>${item.question}</strong>
-
-      <span class="inline-pinyin">
-        ${item.pinyin || ''}
-      </span>
-
-      <div class="translation">
-        ${item.translation || ''}
-      </div>
+      <span class="inline-pinyin">${item.pinyin || ''}</span>
+      <div class="translation">${item.translation || ''}</div>
 
       ${item.prompt ? `
         <p>
           <b>${item.prompt}</b>
-          <span class="inline-pinyin">
-            ${item.promptPinyin || ''}
-          </span>
+          <span class="inline-pinyin">${item.promptPinyin || ''}</span>
         </p>
       ` : ''}
 
       <div class="choices">
         ${item.choices.map(choice => `
-          <span class="choice"
-            onclick="check(this, ${choice.correct ? 'true' : 'false'})">
-
+          <span class="choice" onclick="check(this, ${choice.correct ? 'true' : 'false'})">
             ${choice.text}
-
-            ${choice.pinyin ? `
-              <br>
-              <span class="inline-pinyin">
-                ${choice.pinyin}
-              </span>
-            ` : ''}
+            ${choice.pinyin ? `<br><span class="inline-pinyin">${choice.pinyin}</span>` : ''}
           </span>
         `).join('')}
       </div>
@@ -391,19 +287,10 @@ function renderChallenge(lesson) {
   const container = document.getElementById('challengeBox');
 
   container.innerHTML = `
-    <h2 class="section-title">
-      🎯 Challenge：我来说一说
-    </h2>
-
+    <h2 class="section-title">🎯 Challenge：我来说一说</h2>
     ${lesson.challenge.lines.map(tokens => renderLine(tokens)).join('')}
-
-    <div class="translation">
-      ${lesson.challenge.translation}
-    </div>
-
-    <div class="tip">
-      ${lesson.challenge.tip}
-    </div>
+    <div class="translation">${lesson.challenge.translation}</div>
+    <div class="tip">${lesson.challenge.tip}</div>
   `;
 }
 
@@ -421,79 +308,49 @@ function showLevel(level, btn) {
   const data = currentLesson.readings[level];
 
   const html = `
-    <div class="level-label">
-      ${data.label}
-    </div>
-
+    <div class="level-label">${data.label}</div>
     ${data.lines.map(tokens => renderLine(tokens, true)).join('')}
-
-    <div class="translation">
-      ${data.translation}
-    </div>
-
-    <div class="tip">
-      ${data.tip}
-    </div>
+    <div class="translation">${data.translation}</div>
+    <div class="tip">${data.tip}</div>
   `;
 
   document.getElementById('reading').innerHTML = html;
-
   hideMeaning();
 }
 
 function renderLine(tokens, clickable = false) {
-  return `
-    <div class="line">
-      ${renderTokens(tokens, clickable)}
-    </div>
-  `;
+  return `<div class="line">${renderTokens(tokens, clickable)}</div>`;
 }
 
 function renderTokens(tokens, clickable = false) {
   return tokens.map(t => {
+    if (t.pause) return `<span class="pause">/</span>`;
+    if (t.blank) return `<span class="fill"></span>`;
+    if (!t.py && /^[。，？：,.!?]$/.test(t.hz || '')) return `<span class="punct">${t.hz}</span>`;
 
-    if (t.pause) {
-      return `<span class="pause">/</span>`;
-    }
-
-    if (t.blank) {
-      return `<span class="fill"></span>`;
-    }
-
-    if (!t.py && /^[。，？：,.!?]$/.test(t.hz || '')) {
-      return `<span class="punct">${t.hz}</span>`;
-    }
-
-    const meaning = currentLesson && currentLesson.meanings
-      ? currentLesson.meanings[t.hz]
-      : '';
-
-    const clickAttr = clickable && meaning
-      ? `onclick="showMeaning(event, '${escapeForAttribute(meaning)}')"`
-      : '';
+    const meaning = currentLesson && currentLesson.meanings ? currentLesson.meanings[t.hz] : '';
+    const clickAttr = clickable && meaning ? `onclick="showMeaning(event, '${escapeForAttribute(meaning)}')"` : '';
 
     return `
       <span class="token" ${clickAttr}>
         <span class="token-pinyin">${t.py || ''}</span>
-        <span class="token-hanzi ${t.cls || ''}">
-          ${t.hz || ''}
-        </span>
+        <span class="token-hanzi ${t.cls || ''}">${t.hz || ''}</span>
       </span>
     `;
   }).join('');
 }
 
-/* ===== FIXED VERSION: emoji will not be read ===== */
+function isEmojiOnly(text) {
+  return /^\p{Extended_Pictographic}+$/u.test(text);
+}
+
 function flattenTokens(tokens) {
   return tokens
     .map(t => {
       const text = t.hz || '';
 
-      // skip emoji
-      if (/[
-        \p{Emoji_Presentation}
-        \p{Extended_Pictographic}
-      ]/gu.test(text)) {
+      // 跳过对话人物 emoji，例如 👧： 🧒：
+      if (/^[\p{Extended_Pictographic}\p{Emoji_Presentation}]+[：:]?$/u.test(text)) {
         return '';
       }
 
@@ -508,26 +365,18 @@ function speakReading() {
   if (!currentLesson) return;
 
   const lines = currentLesson.readings[currentLevel].lines;
-
-  speak(
-    lines
-      .map(flattenTokens)
-      .join(' ')
-  );
+  speak(lines.map(flattenTokens).join(' '));
 }
 
 function speak(text) {
   if ('speechSynthesis' in window) {
-
     window.speechSynthesis.cancel();
 
     const utterance = new SpeechSynthesisUtterance(text);
-
     utterance.lang = 'zh-CN';
     utterance.rate = 0.72;
 
     window.speechSynthesis.speak(utterance);
-
   } else {
     alert('This browser does not support speech synthesis.');
   }
@@ -560,7 +409,6 @@ function showMeaning(event, meaning) {
   pop.style.display = 'block';
 
   const rect = event.currentTarget.getBoundingClientRect();
-
   const left = Math.min(rect.left, window.innerWidth - 280);
   const top = rect.bottom + 8;
 
@@ -570,10 +418,7 @@ function showMeaning(event, meaning) {
 
 function hideMeaning() {
   const pop = document.getElementById('meaningPop');
-
-  if (pop) {
-    pop.style.display = 'none';
-  }
+  if (pop) pop.style.display = 'none';
 }
 
 function check(el, isCorrect) {
