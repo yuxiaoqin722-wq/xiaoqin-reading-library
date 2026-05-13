@@ -16,10 +16,18 @@
   --theme-1c: #D88A63;
   --theme-1c-soft: #fff0e8;
   --theme-1c-dark: #8f4f32;
+
+  --active-color: var(--theme-1a);
+  --active-soft: var(--theme-1a-soft);
+  --active-dark: var(--theme-1a-dark);
 }
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -32,6 +40,7 @@ body {
     linear-gradient(180deg, #fffdf9 0%, var(--bg) 100%);
   color: var(--ink);
   min-height: 100vh;
+  line-height: 1.6;
 }
 
 .hidden {
@@ -44,6 +53,7 @@ body {
   padding: 34px 18px 50px;
 }
 
+/* ===================== Home Hero ===================== */
 .hero,
 .lesson-hero {
   position: relative;
@@ -57,6 +67,18 @@ body {
 
 .hero {
   background: linear-gradient(135deg, #f2fbf6 0%, #eef4ff 46%, #fff0e8 100%);
+}
+
+.hero::after {
+  content: "读 · 听 · 说";
+  position: absolute;
+  right: 28px;
+  bottom: 18px;
+  color: rgba(90,68,52,.10);
+  font-size: 58px;
+  font-weight: 900;
+  letter-spacing: 8px;
+  pointer-events: none;
 }
 
 .lesson-hero {
@@ -73,6 +95,7 @@ body {
   font-weight: 800;
   letter-spacing: 1px;
   margin-bottom: 14px;
+  box-shadow: 0 4px 12px rgba(90,68,52,.08);
 }
 
 h1 {
@@ -80,6 +103,8 @@ h1 {
   color: #4d3b35;
   font-size: clamp(36px, 6vw, 64px);
   line-height: 1.1;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 0 rgba(255,255,255,.85);
 }
 
 .subtitle {
@@ -90,6 +115,7 @@ h1 {
   line-height: 1.7;
 }
 
+/* ===================== Buttons / Toolbars ===================== */
 .toolbar,
 .top-nav,
 .reading-toolbar {
@@ -104,6 +130,15 @@ h1 {
   margin: 24px 0;
 }
 
+#lessonToolbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(251,247,241,.88);
+  backdrop-filter: blur(8px);
+  padding: 12px 0;
+}
+
 button {
   border: 0;
   cursor: pointer;
@@ -111,6 +146,7 @@ button {
   border-radius: 999px;
   background: #fff;
   color: #5f514a;
+  font-size: 15px;
   font-weight: 800;
   box-shadow: 0 6px 14px rgba(90,68,52,.10);
   transition: .2s ease;
@@ -121,16 +157,30 @@ button:hover {
 }
 
 button.active {
-  background: #4d3b35;
-  color: white;
+  background: var(--active-color, #4d3b35);
+  color: #fff;
 }
 
+#bookFilters button.active {
+  background: #4d3b35;
+  color: #fff;
+}
+
+/* ===================== Home Book Sections ===================== */
 .book-section {
   margin-top: 28px;
   background: rgba(255,255,255,.92);
   border-radius: 30px;
   padding: 24px;
   box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.book-section .section-title {
+  border-bottom: 1px solid rgba(90,68,52,.08);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
 }
 
 .section-title {
@@ -139,6 +189,7 @@ button.active {
   gap: 10px;
   margin: 0 0 14px;
   font-size: 26px;
+  color: var(--active-dark, #356b58);
 }
 
 .lesson-grid,
@@ -160,27 +211,23 @@ button.active {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
-.lesson-card,
-.key-card,
-.practice-question,
-.card {
-  background: rgba(255,255,255,.94);
-  border-radius: 24px;
-  box-shadow: var(--shadow);
-}
-
 .lesson-card {
   display: block;
   text-decoration: none;
   color: inherit;
   padding: 20px;
+  min-height: 185px;
   transition: .22s ease;
   position: relative;
   overflow: hidden;
+  background: rgba(255,255,255,.94);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
 }
 
 .lesson-card:hover {
   transform: translateY(-4px);
+  box-shadow: 0 14px 24px rgba(90,68,52,.14);
 }
 
 .lesson-number,
@@ -206,6 +253,7 @@ button.active {
   font-size: 25px;
   font-weight: 900;
   margin-bottom: 8px;
+  color: #493730;
 }
 
 .lesson-pinyin {
@@ -218,19 +266,7 @@ button.active {
   color: #735c54;
   font-size: 14px;
   line-height: 1.6;
-}
-
-.card {
-  padding: 24px;
-  margin-top: 20px;
-}
-
-.student-tip,
-.teacher-note,
-.translation,
-.tip,
-.footer-note {
-  color: var(--muted);
+  max-width: 86%;
 }
 
 .teacher-note {
@@ -238,12 +274,55 @@ button.active {
   padding: 18px 20px;
   border-radius: 22px;
   background: rgba(255,255,255,.78);
+  color: #6a5a52;
+  line-height: 1.8;
+  font-size: 15px;
+  box-shadow: 0 8px 20px rgba(90,68,52,.08);
+  border: 1px solid rgba(90,68,52,.08);
 }
 
+/* ===================== Lesson Common Layout ===================== */
+.card {
+  background: rgba(255,255,255,.94);
+  border: 1px solid rgba(90,68,52,.08);
+  border-radius: 26px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  margin-top: 20px;
+}
+
+.student-tip {
+  color: #657a70;
+  font-size: 15px;
+  margin-top: 0;
+}
+
+.translation {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 14px;
+  background: var(--active-soft, #eef8f3);
+  color: var(--active-dark, #385f51);
+  font-size: 16px;
+}
+
+/* ===================== Key Words ===================== */
 .key-card {
+  background: rgba(255,255,255,.86);
+  border: 1px solid rgba(90,68,52,.08);
+  border-radius: 22px;
   padding: 16px;
   text-align: center;
   cursor: pointer;
+  transition: .2s ease;
+  min-height: 150px;
+  box-shadow: 0 8px 18px rgba(90,68,52,.08);
+}
+
+.key-card:hover,
+.sentence-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(90,68,52,.12);
 }
 
 .emoji {
@@ -254,12 +333,53 @@ button.active {
 .hanzi {
   font-size: 30px;
   font-weight: 900;
+  margin-top: 4px;
 }
 
 .small-pinyin {
+  color: var(--muted);
   font-size: 20px;
+  margin-top: 2px;
 }
 
+/* ===================== Key Sentences ===================== */
+.sentence-bank {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.sentence-card {
+  background: linear-gradient(180deg, #fff, rgba(255,255,255,.72));
+  border: 1px dashed rgba(90,68,52,.16);
+  border-radius: 20px;
+  padding: 14px 18px;
+  cursor: pointer;
+  overflow-x: auto;
+  transition: .2s ease;
+}
+
+.sentence-card .line {
+  flex-wrap: nowrap;
+  margin: 4px 0;
+  gap: 6px 9px;
+}
+
+.sentence-card .token-pinyin {
+  font-size: 16px;
+}
+
+.sentence-card .token-hanzi,
+.sentence-card .punct {
+  font-size: 30px;
+}
+
+.sentence-card .token {
+  min-width: 36px;
+}
+
+/* ===================== Token System ===================== */
 .line {
   display: flex;
   flex-wrap: wrap;
@@ -272,34 +392,107 @@ button.active {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-end;
   min-width: 48px;
-  cursor: pointer;
 }
 
 .token-pinyin {
   font-size: clamp(17px, 2vw, 26px);
+  line-height: 1.1;
   color: #66766f;
   font-weight: 700;
+  margin-bottom: 4px;
+  white-space: nowrap;
 }
 
-.token-hanzi,
+.token-hanzi {
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 1.08;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
 .punct {
   font-size: clamp(28px, 4vw, 48px);
   font-weight: 900;
+  line-height: 1.08;
+  margin-left: -8px;
+}
+
+.pause {
+  color: #9aaaa2;
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 500;
+  align-self: flex-end;
+  padding-bottom: 4px;
+}
+
+.place { color: #4f7fbf; }
+.country { color: #3f8f72; }
+.location { color: #8b6fb3; }
+.from { color: #d88a63; }
+.like { color: #3f8f72; }
+.not-like { color: #c85b5b; }
+.activity { color: #4f7fbf; }
+.time { color: #8b6fb3; }
+.speaker { color: var(--active-dark, #356b58); }
+
+/* ===================== Reading ===================== */
+.reading-card {
+  min-height: 72vh;
+  padding: clamp(22px, 4vw, 42px);
+}
+
+.reading-toolbar {
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.reading-toolbar-left,
+.reading-toolbar-right {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .reading-box {
-  background: linear-gradient(180deg, #fff, #f8fffb);
+  background: linear-gradient(180deg, #fff, rgba(255,255,255,.72));
   border-radius: 28px;
-  padding: 32px;
+  border: 1px dashed rgba(90,68,52,.16);
+  padding: clamp(22px, 4vw, 44px);
   min-height: 54vh;
 }
 
-.translation {
-  margin-top: 8px;
-  padding: 8px 12px;
-  border-radius: 14px;
-  background: rgba(255,255,255,.72);
+.level-label {
+  display: inline-block;
+  padding: 8px 15px;
+  border-radius: 999px;
+  background: var(--active-soft, #e9f5ef);
+  color: var(--active-dark, #356b58);
+  font-weight: 900;
+  margin-bottom: 24px;
+  font-size: 19px;
+}
+
+.reading-box .token {
+  cursor: pointer;
+  position: relative;
+  padding: 3px 5px;
+  border-radius: 12px;
+  transition: .18s ease;
+}
+
+.reading-box .token:hover {
+  background: rgba(90,68,52,.08);
+}
+
+.tip {
+  margin-top: 26px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: var(--active-soft, #e9f5ef);
+  color: var(--active-dark, #356b58);
+  font-size: 18px;
 }
 
 .meaning-pop {
@@ -307,24 +500,124 @@ button.active {
   z-index: 2000;
   max-width: 260px;
   background: #fff;
+  color: var(--active-dark, #356b58);
+  border: 1px solid rgba(90,68,52,.12);
+  box-shadow: 0 12px 28px rgba(58,101,82,.18);
   border-radius: 18px;
   padding: 12px 14px;
   font-size: 18px;
   font-weight: 800;
   display: none;
-  box-shadow: 0 12px 28px rgba(58,101,82,.18);
+}
+
+/* ===================== Practice ===================== */
+.practice-question {
+  padding: 18px;
+  background: rgba(255,255,255,.72);
+  border: 1px solid rgba(90,68,52,.08);
+  border-radius: 20px;
+}
+
+.practice-question strong {
+  font-size: 19px;
+}
+
+.inline-pinyin {
+  color: #777;
+  font-size: 16px;
+  display: block;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
 }
 
 .choice {
-  background: white;
+  display: inline-block;
+  background: #fff;
+  border: 1px solid rgba(90,68,52,.12);
   border-radius: 16px;
   padding: 10px 14px;
   cursor: pointer;
   font-weight: 800;
+  font-size: 17px;
+  transition: .18s ease;
 }
 
+.choice:hover {
+  transform: translateY(-2px);
+}
+
+.choice.correct {
+  background: #e7f6ed;
+  border-color: #89c99f;
+  color: #2f7a4e;
+}
+
+.choice.wrong {
+  background: #ffecec;
+  border-color: #e6a0a0;
+  color: #a94343;
+}
+
+/* ===================== Challenge ===================== */
 .challenge {
-  border-left: 6px solid var(--theme-1a);
+  background: linear-gradient(135deg, rgba(255,255,255,.82), #fff);
+  border-left: 6px solid var(--active-color, #6BA892);
+  padding: 20px 22px;
+}
+
+.challenge .section-title {
+  font-size: 22px;
+  margin-bottom: 8px;
+  color: var(--active-dark, #356b58);
+}
+
+.challenge .line {
+  margin: 10px 0;
+  gap: 7px;
+}
+
+.challenge .token {
+  min-width: 38px;
+}
+
+.challenge .token-pinyin {
+  font-size: 15px;
+  margin-bottom: 2px;
+}
+
+.challenge .token-hanzi,
+.challenge .punct {
+  font-size: 28px;
+  line-height: 1.05;
+}
+
+.challenge .tip {
+  margin-top: 12px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.fill {
+  display: inline-block;
+  min-width: 150px;
+  border-bottom: 4px solid var(--active-color, #6BA892);
+  height: 1.2em;
+  vertical-align: middle;
+}
+
+/* ===================== Footer ===================== */
+.footer-note {
+  text-align: center;
+  color: var(--muted);
+  margin-top: 30px;
+  font-size: 14px;
 }
 
 .signature {
@@ -343,8 +636,10 @@ button.active {
   font-family: 'STLiti','KaiTi','Kaiti SC',serif;
   font-size: 18px;
   color: #9b6a58;
+  letter-spacing: 1px;
 }
 
+/* ===================== Toggle States ===================== */
 body.hide-pinyin .small-pinyin,
 body.hide-pinyin .token-pinyin,
 body.hide-pinyin .inline-pinyin {
@@ -355,14 +650,47 @@ body.hide-translation .translation {
   display: none;
 }
 
+/* ===================== Responsive ===================== */
 @media (max-width: 620px) {
+  .page {
+    padding: 24px 12px 40px;
+  }
+
   .hero,
   .lesson-hero {
     padding: 28px 18px;
+    border-radius: 26px;
   }
 
-  .card,
-  .book-section {
+  .hero::after {
+    font-size: 36px;
+    right: 14px;
+    bottom: 10px;
+  }
+
+  .book-section,
+  .card {
     padding: 18px;
+  }
+
+  .section-title {
+    font-size: 22px;
+  }
+
+  .lesson-card {
+    min-height: 170px;
+  }
+
+  .token-hanzi,
+  .punct {
+    font-size: clamp(28px, 8vw, 42px);
+  }
+
+  .token-pinyin {
+    font-size: clamp(16px, 4vw, 22px);
+  }
+
+  .reading-box {
+    padding: 20px;
   }
 }
