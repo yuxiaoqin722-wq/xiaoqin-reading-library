@@ -148,5 +148,15 @@ const LESSON_LIBRARY = [
     description: 'Theme: School timetable. Learn to talk about subjects and class time.',
     icon: '🏫',
     status: 'Ready'
-  }
+  },
+  {
+  id: '3B-lesson2',
+  book: '3B',
+  lesson: 'Lesson 2',
+  title: '她说汉语说得很好。',
+  pinyin: 'Tā shuō Hànyǔ shuō de hěn hǎo.',
+  description: 'Theme: Talking about skills. Learn to describe how well someone can do something.',
+  icon: '🗣️',
+  status: 'Ready'
+},
 ];
