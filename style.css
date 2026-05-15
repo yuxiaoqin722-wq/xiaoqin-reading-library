@@ -427,16 +427,60 @@ button.active {
   padding-bottom: 4px;
 }
 
-.place { color: #4f7fbf; }
-.country { color: #3f8f72; }
-.location { color: #8b6fb3; }
-.from { color: #d88a63; }
-.like { color: #3f8f72; }
-.not-like { color: #c85b5b; }
-.activity { color: #4f7fbf; }
-.time { color: #8b6fb3; }
-.speaker { color: var(--active-dark, #356b58); }
+/* =====================
+   Semantic Token Colors
+   山水蓝绿系：柔和、统一、适合投屏
+===================== */
 
+/* 人物 / 主语 */
+.self,
+.person,
+.speaker {
+  color: #3f6f8f;
+}
+
+/* 动作 / 判断 */
+.activity {
+  color: #7a6a3a;
+}
+
+/* 名字 */
+.name {
+  color: #6b5f8f;
+}
+
+/* 地点 / 国家 */
+.place,
+.country,
+.location {
+  color: #4f7f68;
+}
+
+/* 时间 / 年龄 */
+.time {
+  color: #8a6f4d;
+}
+
+/* 喜欢 / 情感 */
+.like {
+  color: #8f5f5f;
+}
+
+.not-like {
+  color: #9b4f4f;
+}
+
+/* 问候 / 感谢 / 告别 / 尊称 */
+.greeting,
+.thanks,
+.bye,
+.respect {
+  color: #8f6f4f;
+}
+
+.from {
+  color: #8f6f4f;
+}
 /* ===================== Reading ===================== */
 .reading-card {
   min-height: 72vh;
@@ -692,5 +736,204 @@ body.hide-translation .translation {
 
   .reading-box {
     padding: 20px;
+  }
+}
+/* =========================================================
+   Reading Sentence System
+========================================================= */
+
+.reading-sentence-row {
+
+  position: relative;
+
+  margin: 18px 0;
+
+  padding-right: 74px;
+}
+
+.reading-sentence-row .sentence-content .line {
+
+  margin: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 10px 12px;
+
+  align-items: flex-end;
+}
+
+/* =========================
+   Right Side Buttons
+========================= */
+
+.sentence-tools {
+
+  position: absolute;
+
+  right: 0;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 4px;
+}
+
+.sentence-audio-btn,
+.sentence-translate-btn {
+
+  width: 28px;
+  height: 28px;
+
+  min-width: 28px;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: var(--active-soft, #f3f4f6);
+
+  color: var(--active-dark, #333);
+
+  font-size: 12px;
+
+  cursor: pointer;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  box-shadow: 0 2px 6px rgba(90, 68, 52, 0.12);
+
+  transition: all 0.15s ease;
+}
+
+.sentence-audio-btn:hover,
+.sentence-translate-btn:hover {
+
+  background: #ffffff;
+
+  transform: translateY(-1px);
+}
+
+/* =========================
+   Sentence Translation
+========================= */
+
+.sentence-translation {
+
+  display: none;
+
+  margin-top: 10px;
+
+  margin-left: 4px;
+
+  padding: 10px 14px;
+
+  border-radius: 14px;
+
+  background: rgba(255,255,255,.75);
+
+  color: #5d534d;
+
+  font-size: 15px;
+
+  line-height: 1.7;
+
+  border: 1px solid rgba(90,68,52,.06);
+}
+
+.sentence-translation.show {
+
+  display: block;
+}
+
+/* =========================
+   Token Stability
+========================= */
+
+.token {
+
+  display: inline-flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  white-space: nowrap;
+
+  vertical-align: bottom;
+}
+
+/* 标点跟随前词 */
+
+.punct-inline {
+
+  display: inline-block;
+
+  white-space: nowrap;
+
+  font-size: 1.8em;
+
+  font-weight: 800;
+
+  margin-left: -2px;
+
+  margin-right: 4px;
+
+  vertical-align: bottom;
+
+  line-height: 1;
+}
+
+/* =========================
+   Hide Old Reading Button
+========================= */
+
+button[onclick="speakReading()"] {
+
+  display: none !important;
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 640px) {
+
+  .reading-sentence-row {
+
+    padding-right: 64px;
+  }
+
+  .sentence-tools {
+
+    gap: 3px;
+  }
+
+  .sentence-audio-btn,
+  .sentence-translate-btn {
+
+    width: 25px;
+    height: 25px;
+
+    min-width: 25px;
+
+    font-size: 10px;
+  }
+
+  .sentence-translation {
+
+    font-size: 14px;
+
+    line-height: 1.6;
   }
 }
