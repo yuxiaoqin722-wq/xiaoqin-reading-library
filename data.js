@@ -90,6 +90,16 @@ const BOOK_THEMES = {
 
 const LESSON_LIBRARY = [
   {
+  id: '1A-lesson1',
+  book: '1A',
+  lesson: 'Lesson 1',
+  title: '拼音与汉字',
+  pinyin: 'Pīnyīn yǔ Hànzì.',
+  description: 'Theme: Pinyin and Chinese characters. Learn basic sounds, tones and simple Chinese characters.',
+  icon: '🔤',
+  status: 'Ready'
+},
+  {
     id: '1A-lesson2',
     book: '1A',
     lesson: 'Lesson 2',
@@ -110,6 +120,56 @@ const LESSON_LIBRARY = [
     status: 'Ready'
   },
   {
+  id: '1A-lesson4',
+  book: '1A',
+  lesson: 'Lesson 4',
+  title: '这是九。',
+  pinyin: 'Zhè shì jiǔ.',
+  description: 'Theme: Numbers. Learn numbers 1–10 and ask “这是几？”.',
+  icon: '🔢',
+  status: 'Ready'
+},
+{
+  id: '1A-lesson5',
+  book: '1A',
+  lesson: 'Lesson 5',
+  title: '我十二岁。',
+  pinyin: 'Wǒ shíèr suì.',
+  description: 'Theme: Age. Learn to ask and answer age in Chinese.',
+  icon: '🎂',
+  status: 'Ready'
+},
+{
+  id: '1A-lesson6',
+  book: '1A',
+  lesson: 'Lesson 6',
+  title: '今天星期四。',
+  pinyin: 'Jīntiān Xīngqīsì.',
+  description: 'Theme: Days of the week. Learn to ask and answer “今天星期几？”.',
+  icon: '📅',
+  status: 'Ready'
+},
+{
+  id: '1A-lesson7',
+  book: '1A',
+  lesson: 'Lesson 7',
+  title: '这是阿联酋。',
+  pinyin: 'Zhè shì Āliánqiú.',
+  description: 'Theme: Countries. Learn to say country names and ask “这是什么国家？”.',
+  icon: '🌍',
+  status: 'Ready'
+},
+{
+  id: '1A-lesson8',
+  book: '1A',
+  lesson: 'Lesson 8',
+  title: '我是阿联酋人。',
+  pinyin: 'Wǒ shì Āliánqiú rén.',
+  description: 'Theme: Nationalities. Learn to ask and answer “你是哪国人？”.',
+  icon: '🌏',
+  status: 'Ready'
+},
+  {
     id: '1A-lesson9',
     book: '1A',
     lesson: 'Lesson 9',
@@ -119,6 +179,56 @@ const LESSON_LIBRARY = [
     icon: '🌏',
     status: 'Ready'
   },
+  {
+  id: '1B-lesson1',
+  book: '1B',
+  lesson: 'Lesson 1',
+  title: '她是我妹妹。',
+  pinyin: 'Tā shì wǒ mèimei.',
+  description: 'Theme: Family members. Learn to introduce family members and ask “她是谁？”.',
+  icon: '👨‍👩‍👧',
+  status: 'Ready'
+},
+{
+  id: '1B-lesson2',
+  book: '1B',
+  lesson: 'Lesson 2',
+  title: '我有两个哥哥。',
+  pinyin: 'Wǒ yǒu liǎng ge gēge.',
+  description: 'Theme: Family and numbers. Learn to say “我有……” and use “和”.',
+  icon: '👨‍👩‍👦‍👦',
+  status: 'Ready'
+},
+{
+  id: '1B-lesson3',
+  book: '1B',
+  lesson: 'Lesson 3',
+  title: '我爱我家！',
+  pinyin: 'Wǒ ài wǒ jiā!',
+  description: 'Theme: My family. Learn to introduce family and say “我爱我家！”.',
+  icon: '❤️',
+  status: 'Ready'
+},
+{
+  id: '1B-lesson4',
+  book: '1B',
+  lesson: 'Lesson 4',
+  title: '现在几点？',
+  pinyin: 'Xiànzài jǐ diǎn?',
+  description: 'Theme: Time. Learn to ask and answer “现在几点？”.',
+  icon: '⏰',
+  status: 'Ready'
+},
+{
+  id: '1B-lesson5',
+  book: '1B',
+  lesson: 'Lesson 5',
+  title: '今天二月一号。',
+  pinyin: 'Jīntiān èr yuè yī hào.',
+  description: 'Theme: Date. Learn to ask and answer “今天几月几号？”.',
+  icon: '📅',
+  status: 'Ready'
+},
   {
     id: '1C-lesson4',
     book: '1C',
