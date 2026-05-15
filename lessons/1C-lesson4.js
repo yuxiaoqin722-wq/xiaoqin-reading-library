@@ -159,7 +159,7 @@ window.LESSONS['1C-lesson4'] = {
           { hz: '。' }
         ],
         [
-          { py: 'Fàngxué yǐhòu', hz: '放学后', cls: 'time' },
+          { py: 'Fàngxué hòu', hz: '放学后', cls: 'time' },
           { hz: '，' },
           { py: 'wǒ', hz: '我' },
           { py: 'xǐhuan', hz: '喜欢', cls: 'like' },
