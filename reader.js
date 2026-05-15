@@ -309,7 +309,7 @@ function showLevel(level, btn) {
 
   const html = `
     <div class="level-label">${data.label}</div>
-    ${data.lines.map(tokens => renderLine(tokens, true)).join('')}
+    ${data.lines.map(line => renderReadingParagraph(line)).join('')}
     <div class="translation">${data.translation}</div>
     <div class="tip">${data.tip}</div>
   `;
@@ -318,38 +318,160 @@ function showLevel(level, btn) {
   hideMeaning();
 }
 
+function renderReadingParagraph(line) {
+  const tokens = Array.isArray(line) ? line : line.tokens;
+  const lineTranslation = Array.isArray(line) ? '' : (line.translation || '');
+
+  const sentences = splitTokensBySentence(tokens);
+
+  return sentences.map(sentenceTokens => {
+    const text = flattenTokens(sentenceTokens);
+    const translation = lineTranslation || getSentenceTranslation(sentenceTokens);
+    const translationId = 'tr_' + Math.random().toString(36).slice(2, 9);
+
+    return `
+      <div class="reading-sentence-row">
+        <div class="sentence-content">
+          ${renderLine(sentenceTokens, true)}
+        </div>
+
+        <div class="sentence-tools">
+          <button class="sentence-audio-btn"
+            onclick="event.stopPropagation(); speak('${escapeForAttribute(text)}')"
+            title="Listen">🔊</button>
+
+          <button class="sentence-translate-btn"
+            onclick="event.stopPropagation(); toggleSentenceTranslation('${translationId}')"
+            title="Translation">🌍</button>
+        </div>
+
+        <div id="${translationId}" class="sentence-translation">
+          ${translation || 'No translation yet.'}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function splitTokensBySentence(tokens) {
+
+  const sentences = [];
+  let current = [];
+
+  tokens.forEach(t => {
+
+    current.push(t);
+
+    const hz = t.hz || '';
+
+    // 只有真正句末标点才切句
+    const isSentenceEnd =
+      hz === '。' ||
+      hz === '？' ||
+      hz === '！' ||
+      hz === '.' ||
+      hz === '?' ||
+      hz === '!';
+
+    if (isSentenceEnd) {
+
+      // 检查这一句是否真的有中文内容
+      const hasChineseContent = current.some(token => {
+
+        const text = token.hz || '';
+
+        // 过滤 emoji
+        if (/^[\p{Extended_Pictographic}\p{Emoji_Presentation}]+$/u.test(text)) {
+          return false;
+        }
+
+        // 必须包含中文
+        return /[\u4e00-\u9fff]/.test(text);
+
+      });
+
+      // 只有真正句子才加入
+      if (hasChineseContent) {
+        sentences.push(current);
+      }
+
+      current = [];
+    }
+
+  });
+
+  // 最后一段
+  if (current.length > 0) {
+
+    const hasChineseContent = current.some(token => {
+
+      const text = token.hz || '';
+
+      if (/^[\p{Extended_Pictographic}\p{Emoji_Presentation}]+$/u.test(text)) {
+        return false;
+      }
+
+      return /[\u4e00-\u9fff]/.test(text);
+
+    });
+
+    if (hasChineseContent) {
+      sentences.push(current);
+    }
+  }
+
+  return sentences;
+}
+
 function renderLine(tokens, clickable = false) {
   return `<div class="line">${renderTokens(tokens, clickable)}</div>`;
 }
 
 function renderTokens(tokens, clickable = false) {
-  return tokens.map(t => {
-    if (t.pause) return `<span class="pause">/</span>`;
-    if (t.blank) return `<span class="fill"></span>`;
-    if (!t.py && /^[。，？：,.!?]$/.test(t.hz || '')) return `<span class="punct">${t.hz}</span>`;
+  let html = '';
 
-    const meaning = currentLesson && currentLesson.meanings ? currentLesson.meanings[t.hz] : '';
-    const clickAttr = clickable && meaning ? `onclick="showMeaning(event, '${escapeForAttribute(meaning)}')"` : '';
+  tokens.forEach(t => {
+    if (t.pause) {
+      html += `<span class="pause">/</span>`;
+      return;
+    }
 
-    return `
+    if (t.blank) {
+      html += `<span class="fill"></span>`;
+      return;
+    }
+
+    const hz = t.hz || '';
+
+    // 标点不要单独成为一个元素，直接贴到前一个 token 后面
+    if (!t.py && /^[。，？：,.!?]$/.test(hz)) {
+      html += `<span class="punct-inline">${hz}</span>`;
+      return;
+    }
+
+    const meaning = currentLesson && currentLesson.meanings ? currentLesson.meanings[hz] : '';
+    const clickAttr = clickable && meaning
+      ? `onclick="showMeaning(event, '${escapeForAttribute(meaning)}')"`
+      : '';
+
+    html += `
       <span class="token" ${clickAttr}>
         <span class="token-pinyin">${t.py || ''}</span>
-        <span class="token-hanzi ${t.cls || ''}">${t.hz || ''}</span>
+        <span class="token-hanzi ${t.cls || ''}">${hz}</span>
       </span>
     `;
-  }).join('');
-}
+  });
 
-function isEmojiOnly(text) {
-  return /^\p{Extended_Pictographic}+$/u.test(text);
+  return html;
 }
 
 function flattenTokens(tokens) {
   return tokens
     .map(t => {
+      if (t.pause || t.blank) return '';
+
       const text = t.hz || '';
 
-      // 跳过对话人物 emoji，例如 👧： 🧒：
       if (/^[\p{Extended_Pictographic}\p{Emoji_Presentation}]+[：:]?$/u.test(text)) {
         return '';
       }
@@ -358,23 +480,57 @@ function flattenTokens(tokens) {
     })
     .join('')
     .replace(/[\/]/g, '')
+    .replace(/[👦👧🧒👨👩👴👵👋🎂📚🎤🎨🎮😊🙏❤️🔢🔊📘🔤➗🔬🎵🏃💻🕑❓➕👥👉]/g, '')
     .trim();
+}
+function getSentenceTranslation(tokens) {
+  if (!currentLesson || !currentLesson.meanings) return '';
+
+  const text = flattenTokens(tokens);
+
+  // 1. 优先匹配整句
+  if (currentLesson.meanings[text]) {
+    return currentLesson.meanings[text];
+  }
+
+  // 2. 兜底：按词组 meanings 拼接
+  const parts = tokens
+    .map(t => {
+      if (t.pause || t.blank) return '';
+      const hz = t.hz || '';
+
+      if (/^[。，？！：,.!?]$/.test(hz)) return '';
+      if (/^[\p{Extended_Pictographic}\p{Emoji_Presentation}]+$/u.test(hz)) return '';
+
+      return currentLesson.meanings[hz] || '';
+    })
+    .filter(Boolean);
+
+  return parts.join(' · ');
+}
+
+function toggleSentenceTranslation(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.toggle('show');
 }
 
 function speakReading() {
-  if (!currentLesson) return;
-
-  const lines = currentLesson.readings[currentLevel].lines;
-  speak(lines.map(flattenTokens).join(' '));
+  return;
 }
 
 function speak(text) {
+  const cleanText = String(text || '').trim();
+
+  if (!cleanText) return;
+
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
 
-    const utterance = new SpeechSynthesisUtterance(text);
+    const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.lang = 'zh-CN';
-    utterance.rate = 0.72;
+    utterance.rate = 0.68;
+    utterance.pitch = 1;
 
     window.speechSynthesis.speak(utterance);
   } else {
