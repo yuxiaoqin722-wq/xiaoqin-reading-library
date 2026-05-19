@@ -229,6 +229,46 @@ const LESSON_LIBRARY = [
   icon: '📅',
   status: 'Ready'
 },
+{
+  id: '1B-lesson6',
+  book: '1B',
+  lesson: 'Lesson 6',
+  title: '祝你生日快乐！',
+  pinyin: 'Zhù nǐ shēngrì kuàilè!',
+  description: 'Theme: Birthday. Learn to ask birthdays and say “祝你生日快乐！”.',
+  icon: '🎂',
+  status: 'Ready'
+},
+{
+  id: '1C-lesson1',
+  book: '1C',
+  lesson: 'Lesson 1',
+  title: '我是学生。',
+  pinyin: 'Wǒ shì xuésheng.',
+  description: 'Theme: Jobs. Learn to ask and answer “做什么工作？”.',
+  icon: '👩‍🏫',
+  status: 'Ready'
+},
+{
+  id: '1C-lesson2',
+  book: '1C',
+  lesson: 'Lesson 2',
+  title: '我六点半起床。',
+  pinyin: 'Wǒ liù diǎn bàn qǐchuáng.',
+  description: 'Theme: Daily routine. Learn to say time and daily activities.',
+  icon: '⏰',
+  status: 'Ready'
+},
+{
+  id: '1C-lesson3',
+  book: '1C',
+  lesson: 'Lesson 3',
+  title: '我的一天。',
+  pinyin: 'Wǒ de yì tiān.',
+  description: 'Theme: My day. Learn to describe daily routine with “每天”.',
+  icon: '📅',
+  status: 'Ready'
+},
   {
     id: '1C-lesson4',
     book: '1C',
@@ -239,6 +279,86 @@ const LESSON_LIBRARY = [
     icon: '🎤',
     status: 'Ready'
   },
+  {
+  id: '1C-lesson5',
+  book: '1C',
+  lesson: 'Lesson 5',
+  title: '你的爱好是什么？',
+  pinyin: 'Nǐ de àihào shì shénme?',
+  description: 'Theme: Hobbies. Learn to ask and answer about hobbies.',
+  icon: '⚽',
+  status: 'Ready'
+},
+{
+  id: '1C-lesson6',
+  book: '1C',
+  lesson: 'Lesson 6',
+  title: '我会说汉语。',
+  pinyin: 'Wǒ huì shuō Hànyǔ.',
+  description: 'Theme: Languages and abilities. Learn to use “会 / 不会”.',
+  icon: '🗣️',
+  status: 'Ready'
+},
+{
+  id: '2A-lesson1',
+  book: '2A',
+  lesson: 'Lesson 1',
+  title: '今天太热了！',
+  pinyin: 'Jīntiān tài rè le!',
+  description: 'Theme: Weather. Learn to ask “今天天气怎么样？” and say “今天太热了！”.',
+  icon: '☀️',
+  status: 'Ready'
+},
+{
+  id: '2A-lesson2',
+  book: '2A',
+  lesson: 'Lesson 2',
+  title: '今天下雨。',
+  pinyin: 'Jīntiān xià yǔ.',
+  description: 'Theme: Weather. Learn to describe sunny, cloudy, rainy, snowy and windy weather.',
+  icon: '🌧️',
+  status: 'Ready'
+},
+{
+  id: '2A-lesson3',
+  book: '2A',
+  lesson: 'Lesson 3',
+  title: '北京的秋天非常美。',
+  pinyin: 'Běijīng de qiūtiān fēicháng měi.',
+  description: 'Theme: Seasons. Learn to talk about four seasons and simple weather.',
+  icon: '🍂',
+  status: 'Ready'
+},
+{
+  id: '2A-lesson4',
+  book: '2A',
+  lesson: 'Lesson 4',
+  title: '你喜欢什么颜色？',
+  pinyin: 'Nǐ xǐhuan shénme yánsè?',
+  description: 'Theme: Colors. Learn to ask and answer favorite colors.',
+  icon: '🎨',
+  status: 'Ready'
+},
+{
+  id: '2A-lesson5',
+  book: '2A',
+  lesson: 'Lesson 5',
+  title: '我周末去奇迹花园了。',
+  pinyin: 'Wǒ zhōumò qù Qíjì Huāyuán le.',
+  description: 'Theme: Weekend places. Learn to ask and answer “周末你去哪儿了？”.',
+  icon: '🌸',
+  status: 'Ready'
+},
+{
+  id: '2A-lesson6',
+  book: '2A',
+  lesson: 'Lesson 6',
+  title: '我周末去公园玩了。',
+  pinyin: 'Wǒ zhōumò qù gōngyuán wán le.',
+  description: 'Theme: Weekend activities. Learn “someone + time + 去 + place + activity + 了”.',
+  icon: '🌳',
+  status: 'Ready'
+},
   {
   id: '2A-lesson7',
   book: '2A',
@@ -259,6 +379,96 @@ const LESSON_LIBRARY = [
     icon: '🏫',
     status: 'Ready'
   },
+  {
+  id: '2A-lesson9',
+  book: '2A',
+  lesson: 'Lesson 9',
+  title: '我今天很忙。',
+  pinyin: 'Wǒ jīntiān hěn máng.',
+  description: 'Theme: My busy day. Learn feelings and daily expressions: “someone + time + 很 + feeling” and “someone + time + 有 + class”.',
+  icon: '🧠',
+  status: 'Ready'
+},
+{
+  id: '2B-lesson1',
+  book: '2B',
+  lesson: 'Lesson 1',
+  title: '你们想喝什么？',
+  pinyin: 'Nǐmen xiǎng hē shénme?',
+  description: 'Theme: Drinks and preferences. Learn “someone + 想喝 + drink”, “喜欢喝 / 不喜欢喝”, and quantity words like 一杯 / 一瓶.',
+  icon: '🥤',
+  status: 'Ready'
+},
+{
+  id: '2B-lesson2',
+  book: '2B',
+  lesson: 'Lesson 2',
+  title: '我喜欢吃中国菜。',
+  pinyin: 'Wǒ xǐhuan chī Zhōngguó cài.',
+  description: 'Theme: Food and preferences. Learn “someone + 喜欢吃 / 不喜欢吃 + food” and compare Chinese food with Arabic food.',
+  icon: '🍽️',
+  status: 'Ready'
+},
+{
+  id: '2B-lesson3',
+  book: '2B',
+  lesson: 'Lesson 3',
+  title: '你们早饭一般吃什么？',
+  pinyin: 'Nǐmen zǎofàn yìbān chī shénme?',
+  description: 'Theme: Meals and daily food. Learn “someone + meal time + 一般 + 吃 + food” for breakfast, lunch, and dinner.',
+  icon: '🍳',
+  status: 'Ready'
+},
+{
+  id: '2B-lesson4',
+  book: '2B',
+  lesson: 'Lesson 4',
+  title: '我现在在家上课。',
+  pinyin: 'Wǒ xiànzài zài jiā shàngkè.',
+  description: 'Theme: Places, jobs, and online class. Learn “someone + 在 + place + activity” and “family member + 是 + job + 在 + place + 工作”.',
+  icon: '💻',
+  status: 'Ready'
+},
+{
+  id: '2B-lesson5',
+  book: '2B',
+  lesson: 'Lesson 5',
+  title: '请问你们要什么？',
+  pinyin: 'Qǐngwèn nǐmen yào shénme?',
+  description: 'Theme: Ordering food in a restaurant. Learn “要 / 不要 + food or drink” and polite restaurant expressions like 请问.',
+  icon: '🍽️',
+  status: 'Ready'
+},
+{
+  id: '2B-lesson6',
+  book: '2B',
+  lesson: 'Lesson 6',
+  title: '我买了一部手机。',
+  pinyin: 'Wǒ mǎi le yí bù shǒujī.',
+  description: 'Theme: Shopping and things. Learn “someone + 买了 / 还买了 + quantity + item” and common measure words.',
+  icon: '📱',
+  status: 'Ready'
+},
+{
+  id: '2C-lesson1',
+  book: '2C',
+  lesson: 'Lesson 1',
+  title: '我想买一双鞋子。',
+  pinyin: 'Wǒ xiǎng mǎi yì shuāng xiézi.',
+  description: 'Theme: Shopping for clothes. Learn “想买 + clothing”, “穿着 + clothing”, and measure words 件 / 条 / 双.',
+  icon: '👟',
+  status: 'Ready'
+},
+{
+  id: '2C-lesson2',
+  book: '2C',
+  lesson: 'Lesson 2',
+  title: '一共七百三十八元。',
+  pinyin: 'Yígòng qībǎi sānshíbā yuán.',
+  description: 'Theme: Shopping and payment. Learn “多少钱 / 一共 / 元”, prices, totals, and mobile scan payment.',
+  icon: '💵',
+  status: 'Ready'
+},
   {
   id: '3B-lesson2',
   book: '3B',
