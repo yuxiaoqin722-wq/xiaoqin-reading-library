@@ -595,4 +595,12 @@ function escapeForAttribute(text) {
 }
 
 document.addEventListener('click', hideMeaning);
-window.addEventListener('DOMContentLoaded', initLibrary);
+window.addEventListener('DOMContentLoaded', () => {
+  initLibrary();
+
+  const lessonId = window.location.hash.replace('#', '');
+
+  if (lessonId && window.LESSONS && window.LESSONS[lessonId]) {
+    openLesson(lessonId);
+  }
+});
