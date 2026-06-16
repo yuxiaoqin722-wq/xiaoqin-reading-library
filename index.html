@@ -8,13 +8,17 @@
 </head>
 <body>
   <main class="page">
-    <section class="hero" id="homeHero">
-      <div class="brand-tag">Chinese Reading Library</div>
-      <h1>跨越丝路<br />Reading Library</h1>
-      <p class="subtitle">
-        Levelled Chinese reading materials for students. Choose a lesson, read with pinyin, listen, and click words to check meanings.
-      </p>
-    </section>
+   <section class="hero" id="homeHero">
+  <div class="brand-tag">Chinese Reading Library</div>
+
+  <h1 class="hero-title-final">
+    跨越丝路
+  </h1>
+
+  <div class="hero-subtitle-final">
+    中文分级阅读平台
+  </div>
+</section>
 
     <section id="homeView">
       <div class="toolbar" id="bookFilters"></div>
@@ -33,14 +37,6 @@
 
       <section class="lesson-hero" id="lessonHero"></section>
 
-      <div class="toolbar" id="lessonToolbar">
-        <button class="active" onclick="showLevel('A', this)">Level A 初级</button>
-        <button onclick="showLevel('B', this)">Level B 中级</button>
-        <button onclick="showLevel('C', this)">Level C 高级</button>
-        <button onclick="togglePinyin()">拼音 Pinyin ON / OFF</button>
-        <button onclick="toggleTranslation()">🌍 Translation ON / OFF</button>
-      </div>
-
       <section class="card">
         <h2 class="section-title">🔑 Key Words & Sentences</h2>
         <p class="student-tip">Tap the words or sentences to listen and practice pronunciation before reading.</p>
@@ -50,6 +46,13 @@
 
       <section class="card reading-card">
         <h2 class="section-title">📖 Reading</h2>
+        <div class="toolbar" id="lessonToolbar">
+        <button class="active" onclick="showLevel('A', this)">Level A 初级</button>
+        <button onclick="showLevel('B', this)">Level B 中级</button>
+        <button onclick="showLevel('C', this)">Level C 高级</button>
+        <button onclick="togglePinyin()">拼音 Pinyin ON / OFF</button>
+        <button onclick="toggleTranslation()">🌍 Translation ON / OFF</button>
+      </div>
         <div class="reading-toolbar">
           <div class="reading-toolbar-left">
             <button onclick="speakReading()">🔊 听 Listen</button>
@@ -116,7 +119,48 @@
 <script src="lessons/2C-lesson4.js"></script>
 <script src="lessons/2C-lesson5.js"></script>
 <script src="lessons/2C-lesson6.js"></script>
+<script src="lessons/3A-lesson1.js"></script>
+<script src="lessons/3A-lesson2.js"></script>
+<script src="lessons/3A-lesson3.js"></script>
+<script src="lessons/3A-lesson4.js"></script>
+<script src="lessons/3A-lesson5.js"></script>
+<script src="lessons/3A-lesson6.js"></script>
+<script src="lessons/3A-lesson7.js"></script>
+<script src="lessons/3A-lesson8.js"></script>
+<script src="lessons/3A-lesson9.js"></script>
+<script src="lessons/3B-lesson1.js"></script>
 <script src="lessons/3B-lesson2.js"></script>
+<script src="lessons/3B-lesson3.js"></script>
+<script src="lessons/3B-lesson4.js"></script>
+<script src="lessons/3B-lesson5.js"></script>
+<script src="lessons/3B-lesson6.js"></script>
+<script src="lessons/3C-lesson1.js"></script>
+<script src="lessons/3C-lesson2.js"></script>
+<script src="lessons/3C-lesson3.js"></script>
+<script src="lessons/3C-lesson4.js"></script>
+<script src="lessons/3C-lesson5.js"></script>
+<script src="lessons/3C-lesson6.js"></script>
+<script src="lessons/4A-lesson1.js"></script>
+<script src="lessons/4A-lesson2.js"></script>
+<script src="lessons/4A-lesson3.js"></script>
+<script src="lessons/4A-lesson4.js"></script>
+<script src="lessons/4A-lesson5.js"></script>
+<script src="lessons/4A-lesson6.js"></script>
+<script src="lessons/4A-lesson7.js"></script>
+<script src="lessons/4A-lesson8.js"></script>
+<script src="lessons/4A-lesson9.js"></script>
+<script src="lessons/4B-lesson1.js"></script>
+<script src="lessons/4B-lesson2.js"></script>
+<script src="lessons/4B-lesson3.js"></script>
+<script src="lessons/4B-lesson4.js"></script>
+<script src="lessons/4B-lesson5.js"></script>
+<script src="lessons/4B-lesson6.js"></script>
+<script src="lessons/4C-lesson1.js"></script>
+<script src="lessons/4C-lesson2.js"></script>
+<script src="lessons/4C-lesson3.js"></script>
+<script src="lessons/4C-lesson4.js"></script>
+<script src="lessons/4C-lesson5.js"></script>
+<script src="lessons/4C-lesson6.js"></script>
 <script src="reader.js"></script>
 </body>
 </html>
