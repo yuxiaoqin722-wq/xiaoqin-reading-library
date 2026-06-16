@@ -469,6 +469,146 @@ const LESSON_LIBRARY = [
   icon: '💵',
   status: 'Ready'
 },
+{
+  id: '2C-lesson3',
+  book: '2C',
+  lesson: 'Lesson 3',
+  title: '苹果多少钱一斤？',
+  pinyin: 'Píngguǒ duōshǎo qián yì jīn?',
+  description: 'Theme: Buying fruit. Learn “多少钱一斤”, fruit words, 斤 / 块, and simple fruit shopping expressions.',
+  icon: '🍎',
+  status: 'Ready'
+},
+{
+  id: '2C-lesson4',
+  book: '2C',
+  lesson: 'Lesson 4',
+  title: '我坐校车去学校。',
+  pinyin: 'Wǒ zuò xiàochē qù xuéxiào.',
+  description: 'Theme: Transportation and weekend activities. Learn “坐 / 骑 / 开 + transportation + 去 + place”.',
+  icon: '🚌',
+  status: 'Ready'
+},
+{
+  id: '2C-lesson5',
+  book: '2C',
+  lesson: 'Lesson 5',
+  title: '我家在学校的旁边。',
+  pinyin: 'Wǒ jiā zài xuéxiào de pángbiān.',
+  description: 'Theme: Home, school, and transportation. Learn “在……旁边”, “离……近/远”, and “怎么来学校”.',
+  icon: '🏠',
+  status: 'Ready'
+},
+{
+  id: '2C-lesson6',
+  book: '2C',
+  lesson: 'Lesson 6',
+  title: '我们是坐火车去的。',
+  pinyin: 'Wǒmen shì zuò huǒchē qù de.',
+  description: 'Theme: Transportation and travel experiences. Learn to describe when, how, and with whom someone traveled using 是……的.',
+  icon: '🚆',
+  status: 'Ready'
+},
+{
+  id: '3A-lesson1',
+  book: '3A',
+  lesson: 'Lesson 1',
+  title: '你周末常常做什么？',
+  pinyin: 'Nǐ zhōumò chángcháng zuò shénme?',
+  description: 'Theme: Weekend activities and habits. Learn to ask and describe what someone often does on weekends using 常常 and verb reduplication.',
+  icon: '🏃',
+  status: 'Ready'
+},
+{
+  id: '3A-lesson2',
+  book: '3A',
+  lesson: 'Lesson 2',
+  title: '洗手间在图书馆里边。',
+  pinyin: 'Xǐshǒujiān zài túshūguǎn lǐbian.',
+  description: 'Theme: School navigation and location. Learn to ask where places are and describe locations using 在……里边 / 前边 / 后边.',
+  icon: '📍',
+  status: 'Ready'
+},
+{
+  id: '3A-lesson3',
+  book: '3A',
+  lesson: 'Lesson 3',
+  title: '请问，去地铁站怎么走？',
+  pinyin: 'Qǐngwèn, qù dìtiězhàn zěnme zǒu?',
+  description: 'Theme: Asking for directions and giving directions. Learn to ask where places are and describe routes using 往前走 / 往左转 / 往右转 / 第一个路口.',
+  icon: '🗺️',
+  status: 'Ready'
+},
+{
+  id: '3A-lesson4',
+  book: '3A',
+  lesson: 'Lesson 4',
+  title: '我想去上海旅行。',
+  pinyin: 'Wǒ xiǎng qù Shànghǎi lǚxíng.',
+  description: 'Theme: Travel and comparison. Learn to compare cities, weather and things using 比 and 没有.',
+  icon: '🧳',
+  status: 'Ready'
+},
+{
+  id: '3A-lesson5',
+  book: '3A',
+  lesson: 'Lesson 5',
+  title: '这件比那件贵100块。',
+  pinyin: 'Zhè jiàn bǐ nà jiàn guì yì bǎi kuài.',
+  description: 'Theme: Shopping and comparison. Learn to compare prices and make choices using 比, 更 and price expressions.',
+  icon: '🛍️',
+  status: 'Ready'
+},
+{
+  id: '3A-lesson6',
+  book: '3A',
+  lesson: 'Lesson 6',
+  title: '你们看过《功夫熊猫》吗？',
+  pinyin: 'Nǐmen kànguo “Gōngfu Xióngmāo” ma?',
+  description: 'Theme: Movie experience and culture. Learn to talk about experiences using 过 and express times using 遍.',
+  icon: '🐼',
+  status: 'Ready'
+},
+{
+  id: '3A-lesson7',
+  book: '3A',
+  lesson: 'Lesson 7',
+  title: '动物园里有两只熊猫。',
+  pinyin: 'Dòngwùyuán lǐ yǒu liǎng zhī xióngmāo.',
+  description: 'Theme: Animals and locations. Learn to describe what is in a place using 有 and measure words.',
+  icon: '🐼',
+  status: 'Ready'
+},
+{
+  id: '3A-lesson8',
+  book: '3A',
+  lesson: 'Lesson 8',
+  title: '它的眼睛很大。',
+  pinyin: 'Tā de yǎnjing hěn dà.',
+  description: 'Theme: Animal body parts and description. Learn to describe animals using 它的……很…… and 它的……是……色的.',
+  icon: '👀',
+  status: 'Ready'
+},
+{
+  id: '3A-lesson9',
+  book: '3A',
+  lesson: 'Lesson 9',
+  title: '我头疼。',
+  pinyin: 'Wǒ tóu téng.',
+  description: 'Theme: Health and advice. Learn to talk about feeling sick and give simple advice using 应该.',
+  icon: '🤕',
+  status: 'Ready'
+},
+{
+  id: '3B-lesson1',
+  book: '3B',
+  lesson: 'Lesson 1',
+  title: '你弹得真好！',
+  pinyin: 'Nǐ tán de zhēn hǎo!',
+  description: 'Theme: Skills and compliments. Learn to talk about skills and describe how well someone does something using 得.',
+  icon: '🎹',
+  status: 'Ready'
+},
   {
   id: '3B-lesson2',
   book: '3B',
@@ -477,6 +617,316 @@ const LESSON_LIBRARY = [
   pinyin: 'Tā shuō Hànyǔ shuō de hěn hǎo.',
   description: 'Theme: Talking about skills. Learn to describe how well someone can do something.',
   icon: '🗣️',
+  status: 'Ready'
+},
+{
+  id: '3B-lesson3',
+  book: '3B',
+  lesson: 'Lesson 3',
+  title: '别担心，我帮你复习。',
+  pinyin: 'Bié dānxīn, wǒ bāng nǐ fùxí.',
+  description: 'Theme: Care and help. Learn to express worry or difficulty, comfort others, and offer help using 别 and 帮.',
+  icon: '🤝',
+  status: 'Ready'
+},
+{
+  id: '3B-lesson4',
+  book: '3B',
+  lesson: 'Lesson 4',
+  title: '我们一起去哈利法塔吧。',
+  pinyin: 'Wǒmen yìqǐ qù Hālìfǎ Tǎ ba.',
+  description: 'Theme: Landmarks and invitations. Learn to introduce famous places and invite others using 一起……吧 and 虽然……但是.',
+  icon: '🏙️',
+  status: 'Ready'
+},
+{
+  id: '3B-lesson5',
+  book: '3B',
+  lesson: 'Lesson 5',
+  title: '哈利法塔晚上最漂亮。',
+  pinyin: 'Hālìfǎ Tǎ wǎnshang zuì piàoliang.',
+  description: 'Theme: Sequence and reasons. Learn to describe order with 先……再…… and explain reasons with 因为……所以…….',
+  icon: '🌃',
+  status: 'Ready'
+},
+{
+  id: '3B-lesson6',
+  book: '3B',
+  lesson: 'Lesson 6',
+  title: '春节要到了。',
+  pinyin: 'Chūnjié yào dào le.',
+  description: 'Theme: Festival preparation. Learn to talk about festivals and things that are going to happen using 要……了.',
+  icon: '🧧',
+  status: 'Ready'
+},
+{
+  id: '3C-lesson1',
+  book: '3C',
+  lesson: 'Lesson 1',
+  title: '熊猫胖胖的、圆圆的。',
+  pinyin: 'Xióngmāo pàngpàng de, yuányuán de.',
+  description: 'Theme: Gifts and descriptions. Learn to introduce gifts, describe their appearance using AA 的, and explain why you choose a gift.',
+  icon: '🐼',
+  status: 'Ready'
+},
+{
+  id: '3C-lesson2',
+  book: '3C',
+  lesson: 'Lesson 2',
+  title: '我们参观了三个小时。',
+  pinyin: 'Wǒmen cānguān le sān ge xiǎoshí.',
+  description: 'Theme: Activities and duration. Learn to talk about how long an activity lasted using 动作 + 了 + 时间段.',
+  icon: '⏰',
+  status: 'Ready'
+},
+{
+  id: '3C-lesson3',
+  book: '3C',
+  lesson: 'Lesson 3',
+  title: '能便宜一点儿吗？',
+  pinyin: 'Néng piányi yìdiǎnr ma?',
+  description: 'Theme: Shopping and comparison. Learn to compare items and ask for a lower price.',
+  icon: '🛍️',
+  status: 'Ready'
+},
+{
+  id: '3C-lesson4',
+  book: '3C',
+  lesson: 'Lesson 4',
+  title: '我找到了！',
+  pinyin: 'Wǒ zhǎodào le!',
+  description: 'Theme: Results and encouragement. Learn to talk about results after actions using 动词 + 到 / 完 / 错 / 会.',
+  icon: '🔍',
+  status: 'Ready'
+},
+{
+  id: '3C-lesson5',
+  book: '3C',
+  lesson: 'Lesson 5',
+  title: '你怎么才来？',
+  pinyin: 'Nǐ zěnme cái lái?',
+  description: 'Theme: Time, punctuality and movement. Learn to use 就 / 才 and 上来 / 下去 / 上去 / 下来 in real situations.',
+  icon: '⏰',
+  status: 'Ready'
+},
+{
+  id: '3C-lesson6',
+  book: '3C',
+  lesson: 'Lesson 6',
+  title: '我穿着红色的上衣。',
+  pinyin: 'Wǒ chuānzhe hóngsè de shàngyī.',
+  description: 'Theme: Clothes and describing people. Learn to describe what someone is wearing or holding using 动词 + 着.',
+  icon: '👕',
+  status: 'Ready'
+},
+{
+  id: '4A-lesson1',
+  book: '4A',
+  lesson: 'Lesson 1',
+  title: '大家都很棒！',
+  pinyin: 'Dàjiā dōu hěn bàng!',
+  description: 'Theme: Class introduction and talents. Learn to introduce a group and describe different talents using 有的……有的…….',
+  icon: '⭐',
+  status: 'Ready'
+},
+{
+  id: '4A-lesson2',
+  book: '4A',
+  lesson: 'Lesson 2',
+  title: '北边是体育馆。',
+  pinyin: 'Běibiān shì tǐyùguǎn.',
+  description: 'Theme: Directions and school map. Learn to introduce places using 东边 / 西边 / 南边 / 北边.',
+  icon: '🧭',
+  status: 'Ready'
+},
+{
+  id: '4A-lesson3',
+  book: '4A',
+  lesson: 'Lesson 3',
+  title: '我可以借一下你的铅笔吗？',
+  pinyin: 'Wǒ kěyǐ jiè yíxià nǐ de qiānbǐ ma?',
+  description: 'Theme: Polite requests and school supplies. Learn to borrow things politely using 可以借一下……吗.',
+  icon: '✏️',
+  status: 'Ready'
+},
+{
+  id: '4A-lesson4',
+  book: '4A',
+  lesson: 'Lesson 4',
+  title: '我请你来我家吃饭。',
+  pinyin: 'Wǒ qǐng nǐ lái wǒ jiā chī fàn.',
+  description: 'Theme: Invitations and visiting friends. Learn to invite someone and ask about free time using 请 / 有空 / 有事.',
+  icon: '🍽️',
+  status: 'Ready'
+},
+{
+  id: '4A-lesson5',
+  book: '4A',
+  lesson: 'Lesson 5',
+  title: '欢迎你！快进来吧。',
+  pinyin: 'Huānyíng nǐ! Kuài jìnlái ba.',
+  description: 'Theme: Welcoming guests and introducing rooms. Learn to welcome someone and describe rooms at home.',
+  icon: '🏠',
+  status: 'Ready'
+},
+{
+  id: '4A-lesson6',
+  book: '4A',
+  lesson: 'Lesson 6',
+  title: '又酸又甜，味道很好。',
+  pinyin: 'Yòu suān yòu tián, wèidào hěn hǎo.',
+  description: 'Theme: Food and taste. Learn to describe food using 又……又…… and 味道怎么样.',
+  icon: '🍽️',
+  status: 'Ready'
+},
+{
+  id: '4A-lesson7',
+  book: '4A',
+  lesson: 'Lesson 7',
+  title: '老师会通知我们。',
+  pinyin: 'Lǎoshī huì tōngzhī wǒmen.',
+  description: 'Theme: School trip and future plans. Learn to talk about future arrangements using 会 / 通知 / 不用.',
+  icon: '🏛️',
+  status: 'Ready'
+},
+{
+  id: '4A-lesson8',
+  book: '4A',
+  lesson: 'Lesson 8',
+  title: '我们一边参观一边拍照。',
+  pinyin: 'Wǒmen yìbiān cānguān yìbiān pāizhào.',
+  description: 'Theme: Museum visit and recording experiences. Learn to describe doing two actions at the same time using 一边……一边…….',
+  icon: '📸',
+  status: 'Ready'
+},
+{
+  id: '4A-lesson9',
+  book: '4A',
+  lesson: 'Lesson 9',
+  title: '你的汉语越来越好了。',
+  pinyin: 'Nǐ de Hànyǔ yuè lái yuè hǎo le.',
+  description: 'Theme: Progress and encouragement. Learn to describe gradual change using 越来越…….',
+  icon: '🌱',
+  status: 'Ready'
+},
+{
+  id: '4B-lesson1',
+  book: '4B',
+  lesson: 'Lesson 1',
+  title: '他拍的短视频酷极了！',
+  pinyin: 'Tā pāi de duǎn shìpín kù jí le!',
+  description: 'Theme: Short videos and strong evaluation. Learn to praise something using 形容词 + 极了.',
+  icon: '🎬',
+  status: 'Ready'
+},
+{
+  id: '4B-lesson2',
+  book: '4B',
+  lesson: 'Lesson 2',
+  title: '我正在看他拍的微电影呢。',
+  pinyin: 'Wǒ zhèngzài kàn tā pāi de wēi diànyǐng ne.',
+  description: 'Theme: Watching and making micro films. Learn to express ongoing actions using 正在……呢 and give examples using 比如.',
+  icon: '🎥',
+  status: 'Ready'
+},
+{
+  id: '4B-lesson3',
+  book: '4B',
+  lesson: 'Lesson 3',
+  title: '你们在迪拜还是阿布扎比？',
+  pinyin: 'Nǐmen zài Dí bài háishi Ābùzhābǐ?',
+  description: 'Theme: Choices and cultural introduction. Learn to ask choices using 还是 and give alternatives using 或者.',
+  icon: '🇦🇪',
+  status: 'Ready'
+},
+{
+  id: '4B-lesson4',
+  book: '4B',
+  lesson: 'Lesson 4',
+  title: '写汉字跟画画一样有趣。',
+  pinyin: 'Xiě Hànzì gēn huàhuà yíyàng yǒuqù.',
+  description: 'Theme: Chinese characters and comparison. Learn to compare things using 跟……一样…….',
+  icon: '🖌️',
+  status: 'Ready'
+},
+{
+  id: '4B-lesson5',
+  book: '4B',
+  lesson: 'Lesson 5',
+  title: '只要你努力，就一定能学好。',
+  pinyin: 'Zhǐyào nǐ nǔlì, jiù yídìng néng xuéhǎo.',
+  description: 'Theme: Learning methods and progress. Learn to express conditions using 只要……就…….',
+  icon: '💪',
+  status: 'Ready'
+},
+{
+  id: '4B-lesson6',
+  book: '4B',
+  lesson: 'Lesson 6',
+  title: '有空的时候我也看看。',
+  pinyin: 'Yǒu kòng de shíhou wǒ yě kànkan.',
+  description: 'Theme: Reading habits and free time. Learn to talk about habits using ……的时候.',
+  icon: '📖',
+  status: 'Ready'
+},
+{
+  id: '4C-lesson1',
+  book: '4C',
+  lesson: 'Lesson 1',
+  title: '我们不但是同学，而且是最好的朋友。',
+  pinyin: 'Wǒmen búdàn shì tóngxué, érqiě shì zuì hǎo de péngyou.',
+  description: 'Theme: Friendship and describing people. Learn to express progression using 不但……而且…….',
+  icon: '🤝',
+  status: 'Ready'
+},
+{
+  id: '4C-lesson2',
+  book: '4C',
+  lesson: 'Lesson 2',
+  title: '孩子送的礼物妈妈都喜欢吧？',
+  pinyin: 'Háizi sòng de lǐwù māma dōu xǐhuan ba?',
+  description: 'Theme: Gifts and gratitude. Learn to express guessing and confirmation using 吧.',
+  icon: '🎁',
+  status: 'Ready'
+},
+{
+  id: '4C-lesson3',
+  book: '4C',
+  lesson: 'Lesson 3',
+  title: '我们从早到晚都在一起。',
+  pinyin: 'Wǒmen cóng zǎo dào wǎn dōu zài yìqǐ.',
+  description: 'Theme: Living environment and moving house. Learn to describe places, distance and changes using 从……到…….',
+  icon: '🏘️',
+  status: 'Ready'
+},
+{
+  id: '4C-lesson4',
+  book: '4C',
+  lesson: 'Lesson 4',
+  title: '我们一到假期就去旅行。',
+  pinyin: 'Wǒmen yí dào jiàqī jiù qù lǚxíng.',
+  description: 'Theme: Holiday plans and travel. Learn to express immediate sequence using 一……就…….',
+  icon: '✈️',
+  status: 'Ready'
+},
+{
+  id: '4C-lesson5',
+  book: '4C',
+  lesson: 'Lesson 5',
+  title: '如果八月参加夏令营，我就七月去旅行。',
+  pinyin: 'Rúguǒ bā yuè cānjiā xiàlìngyíng, wǒ jiù qī yuè qù lǚxíng.',
+  description: 'Theme: Summer camp and holiday plans. Learn to express conditions using 如果……就…….',
+  icon: '🏕️',
+  status: 'Ready'
+},
+{
+  id: '4C-lesson6',
+  book: '4C',
+  lesson: 'Lesson 6',
+  title: '为我们的理想加油！',
+  pinyin: 'Wèi wǒmen de lǐxiǎng jiāyóu!',
+  description: 'Theme: Dreams and future goals. Learn to express purpose and contribution using 为…….',
+  icon: '🎯',
   status: 'Ready'
 },
 ];
