@@ -68,8 +68,8 @@ function renderBookSections(filterBook = 'all', btn = null) {
           </div>
 
           <span style="font-size:14px; color:#7e6d66;">
-            ${theme.subtitle}
-          </span>
+  ${lessons.length} Lessons · ${theme.subtitle}
+</span>
         </div>
 
         <div class="lesson-grid">
@@ -91,6 +91,9 @@ function renderLessonCard(lesson, theme) {
         background:linear-gradient(180deg,#fff,${theme.soft});
         border:1px solid ${theme.color}33;
       ">
+    <button class="copy-link-btn"
+  onclick="event.preventDefault(); event.stopPropagation(); copyLessonLink('${lesson.id}', this)"
+  title="Copy lesson link">🔗</button>
 
       <div class="lesson-number"
         style="
@@ -103,12 +106,7 @@ function renderLessonCard(lesson, theme) {
 
       <div class="lesson-title">${lesson.title}</div>
       <div class="lesson-pinyin">${lesson.pinyin}</div>
-      <div class="lesson-desc">${lesson.description}</div>
 
-      <div class="status"
-        style="background:${theme.color}22; color:${theme.dark};">
-        ${lesson.status}
-      </div>
 
       <div style="
         position:absolute;
@@ -206,33 +204,70 @@ function renderLessonHero(lesson) {
   hero.style.color = theme.dark;
 
   hero.innerHTML = `
-    <div class="brand-tag" style="color:${theme.dark};">
-      📘 《跨越丝路》${lesson.book} · ${lesson.lesson} · Reading
-    </div>
 
     <div style="display:flex; justify-content:center; margin-top:6px; flex-direction:column; align-items:center;">
-      <div style="font-size:14px; letter-spacing:3px; color:${theme.dark}; margin-bottom:10px; font-weight:800; text-transform:uppercase;">
-        ${lesson.lesson}
-      </div>
+      <div style="
+  text-align:center;
+  margin-bottom:12px;
+">
+  <div style="
+    font-size:15px;
+    letter-spacing:2px;
+    opacity:.65;
+    margin-bottom:10px;
+    font-weight:700;
+  ">
+    ${lesson.book} · ${lesson.lesson}
+  </div>
 
-      <div class="line" style="gap:16px; align-items:flex-end; justify-content:center; margin:0; background:rgba(255,255,255,.48); padding:16px 26px; border-radius:24px; box-shadow:0 8px 20px rgba(90,68,52,.08);">
-        ${renderTokens(lesson.titleTokens || [])}
-      </div>
+  <div class="line"
+    style="
+      gap:16px;
+      align-items:flex-end;
+      justify-content:center;
+      margin:0;
+      background:rgba(255,255,255,.45);
+      padding:14px 22px;
+      border-radius:22px;
+    ">
+    ${renderTokens(lesson.titleTokens || [])}
+  </div>
+</div>
     </div>
 
-    <div class="subtitle" style="color:${theme.dark};">
-      <b>Theme:</b> ${lesson.theme}<br>
-      <b>Learning Goal:</b> ${lesson.goal}
-    </div>
+   <div style="
+  margin-top:12px;
+  font-size:18px;
+  opacity:.75;
+  color:${theme.dark};
+  font-weight:600;
+">
+  ${lesson.heroTranslation || ''}
+</div>
 
-    <div class="translation" style="display:inline-block; margin-top:14px; background:rgba(255,255,255,.55); color:${theme.dark}; font-size:14px;">
-      ${lesson.heroTranslation || ''}
-    </div>
+<div style="
+  margin-top:26px;
+  font-size:14px;
+  opacity:.55;
+  font-weight:500;
+  display:flex;
+  justify-content:center;
+  gap:34px;
+  flex-wrap:wrap;
+">
+  <span>Theme: ${lesson.theme}</span>
+  <span>Goal: ${lesson.goal}</span>
+</div>
   `;
 }
 
 function renderKeyWords(lesson) {
   const container = document.getElementById('keyWords');
+
+  const wordCount = lesson.keyWords.length;
+  const columns = wordCount <= 6 ? wordCount : Math.ceil(wordCount / 2);
+
+  container.style.gridTemplateColumns = `repeat(${columns}, minmax(120px, 1fr))`;
 
   container.innerHTML = lesson.keyWords.map(word => `
     <div class="key-card" onclick="speak('${escapeForAttribute(word.text)}')">
@@ -248,9 +283,16 @@ function renderKeySentences(lesson) {
   const container = document.getElementById('keySentences');
 
   container.innerHTML = lesson.keySentences.map(sentence => `
-    <div class="sentence-card" onclick="speak('${escapeForAttribute(sentence.speak || flattenTokens(sentence.tokens))}')">
-      ${renderLine(sentence.tokens)}
-      <div class="translation">${sentence.translation}</div>
+    <div class="sentence-card sentence-row"
+      onclick="speak('${escapeForAttribute(sentence.speak || flattenTokens(sentence.tokens))}')">
+
+      <div class="sentence-left">
+        ${renderLine(sentence.tokens)}
+      </div>
+
+      <div class="translation sentence-right">
+        ${sentence.translation}
+      </div>
     </div>
   `).join('');
 }
@@ -322,35 +364,52 @@ function renderReadingParagraph(line) {
   const tokens = Array.isArray(line) ? line : line.tokens;
   const lineTranslation = Array.isArray(line) ? '' : (line.translation || '');
 
-  const sentences = splitTokensBySentence(tokens);
+  const isDialogue =
+    tokens.length >= 2 &&
+    /^[\p{Extended_Pictographic}\p{Emoji_Presentation}]+$/u.test(tokens[0].hz || '') &&
+    /^[：:]$/.test(tokens[1].hz || '');
 
-  return sentences.map(sentenceTokens => {
-    const text = flattenTokens(sentenceTokens);
-    const translation = lineTranslation || getSentenceTranslation(sentenceTokens);
-    const translationId = 'tr_' + Math.random().toString(36).slice(2, 9);
+  const speakerTokens = isDialogue ? tokens.slice(0, 2) : [];
+  const contentTokens = isDialogue ? tokens.slice(2) : tokens;
 
-    return `
-      <div class="reading-sentence-row">
-        <div class="sentence-content">
-          ${renderLine(sentenceTokens, true)}
+  const sentences = splitTokensBySentence(contentTokens);
+
+  return `
+    <div class="reading-sentence-row ${isDialogue ? 'dialogue-row' : ''}">
+      ${isDialogue ? `
+        <div class="dialogue-speaker-fixed">
+          ${renderTokens(speakerTokens, true)}
         </div>
+      ` : ''}
 
-        <div class="sentence-tools">
-          <button class="sentence-audio-btn"
-            onclick="event.stopPropagation(); speak('${escapeForAttribute(text)}')"
-            title="Listen">🔊</button>
+      <div class="sentence-content ${isDialogue ? 'dialogue-content-fixed' : ''}">
+        ${sentences.map(sentenceTokens => {
+          const text = flattenTokens([...speakerTokens, ...sentenceTokens]);
+          const translation = lineTranslation || getSentenceTranslation(sentenceTokens);
+          const translationId = 'tr_' + Math.random().toString(36).slice(2, 9);
 
-          <button class="sentence-translate-btn"
-            onclick="event.stopPropagation(); toggleSentenceTranslation('${translationId}')"
-            title="Translation">🌍</button>
-        </div>
+          return `
+            <div class="dialogue-sentence-block">
+              ${renderLine(sentenceTokens, true)}
+              <div class="sentence-tools">
+                <button class="sentence-audio-btn"
+                  onclick="event.stopPropagation(); speak('${escapeForAttribute(text)}')"
+                  title="Listen">🔊</button>
 
-        <div id="${translationId}" class="sentence-translation">
-          ${translation || 'No translation yet.'}
-        </div>
+                <button class="sentence-translate-btn"
+                  onclick="event.stopPropagation(); toggleSentenceTranslation('${translationId}')"
+                  title="Translation">🌍</button>
+              </div>
+
+              <div id="${translationId}" class="sentence-translation">
+                ${translation || 'No translation yet.'}
+              </div>
+            </div>
+          `;
+        }).join('')}
       </div>
-    `;
-  }).join('');
+    </div>
+  `;
 }
 
 function splitTokensBySentence(tokens) {
@@ -587,7 +646,22 @@ function check(el, isCorrect) {
 
   el.classList.add(isCorrect ? 'correct' : 'wrong');
 }
+function copyLessonLink(lessonId, btn) {
+  const url =
+    window.location.origin +
+    window.location.pathname +
+    '#' +
+    lessonId;
 
+  navigator.clipboard.writeText(url).then(() => {
+    const oldText = btn.textContent;
+    btn.textContent = '✓';
+
+    setTimeout(() => {
+      btn.textContent = oldText;
+    }, 1200);
+  });
+}
 function escapeForAttribute(text) {
   return String(text)
     .replace(/'/g, '&#39;')
@@ -595,6 +669,11 @@ function escapeForAttribute(text) {
 }
 
 document.addEventListener('click', hideMeaning);
+
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   initLibrary();
 
@@ -602,5 +681,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   if (lessonId && window.LESSONS && window.LESSONS[lessonId]) {
     openLesson(lessonId);
+  } else {
+    window.scrollTo(0, 0);
   }
 });
