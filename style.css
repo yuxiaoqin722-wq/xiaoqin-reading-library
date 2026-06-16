@@ -1119,300 +1119,189 @@ button[onclick="speakReading()"] {
   }
 }
 /* =========================================================
-   Mobile 2.0 Compact Layout
-   只影响手机，不影响电脑端
+   Mobile Clean Version
+   首页紧凑 + Reading 横向滑动
 ========================================================= */
 
 @media (max-width: 640px) {
 
-  body {
+  .page {
+    width: 100%;
+    padding: 14px 10px 36px !important;
     overflow-x: hidden;
   }
 
-  .page {
-    width: 100%;
-    padding: 14px 12px 36px !important;
-  }
-
-  /* 首页顶部 */
-  .hero {
-    padding: 20px 14px !important;
-    border-radius: 24px !important;
-    margin-bottom: 18px !important;
-  }
-
-  .brand-tag {
-    font-size: 14px !important;
-    padding: 6px 14px !important;
-    margin-bottom: 12px !important;
-  }
-
-  .hero-title-final {
-    font-size: 44px !important;
-    letter-spacing: 3px !important;
-    line-height: 1.1 !important;
-  }
-
-  .hero-subtitle-final {
-    font-size: 16px !important;
-    letter-spacing: 4px !important;
-    margin-top: 10px !important;
-  }
-
-  .hero::after {
-    font-size: 28px !important;
-    right: 10px !important;
-    bottom: 6px !important;
-  }
-
-  /* 首页筛选按钮：小一点，三列 */
+  /* 首页筛选按钮 */
   #bookFilters {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px !important;
-    margin: 18px 0 22px !important;
+    margin: 16px 0 20px !important;
   }
 
   #bookFilters button {
-    height: 42px !important;
-    min-width: 0 !important;
-    width: 100% !important;
+    height: 40px !important;
+    font-size: 17px !important;
     padding: 0 !important;
-    font-size: 18px !important;
-    border-radius: 999px !important;
+    min-width: 0 !important;
   }
 
-  /* 首页书本区域 */
+  /* 首页 book section */
   .book-section {
-    padding: 18px 14px !important;
-    border-radius: 24px !important;
-    margin-top: 18px !important;
+    padding: 16px 12px !important;
+    border-radius: 22px !important;
   }
 
   .book-section .section-title {
-    display: grid !important;
-    grid-template-columns: auto 1fr;
-    gap: 10px 14px !important;
+    display: flex !important;
     align-items: center !important;
+    gap: 10px !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
     font-size: 24px !important;
     line-height: 1.2 !important;
-    margin-bottom: 14px !important;
+    padding-bottom: 10px !important;
   }
 
-  .section-title {
+  .book-section .section-title * {
     font-size: 24px !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
   }
 
-  .lesson-grid {
-    grid-template-columns: 1fr !important;
-    gap: 12px !important;
+  .book-section .section-title br {
+    display: none !important;
+  }
+
+  .lesson-desc {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    max-width: none !important;
+    white-space: nowrap !important;
+    overflow-x: auto !important;
   }
 
   .lesson-card {
-    min-height: auto !important;
-    padding: 16px !important;
-    border-radius: 20px !important;
+    min-height: 118px !important;
+    padding: 14px !important;
+    border-radius: 18px !important;
   }
 
   .lesson-title {
     font-size: 23px !important;
     line-height: 1.25 !important;
-    margin-bottom: 8px !important;
+    white-space: nowrap !important;
+    overflow-x: auto !important;
+    display: block !important;
   }
 
   .lesson-pinyin {
     font-size: 15px !important;
-    line-height: 1.35 !important;
+    white-space: nowrap !important;
+    overflow-x: auto !important;
+    display: block !important;
   }
 
-  .lesson-desc {
-    max-width: 100% !important;
-    font-size: 14px !important;
-    line-height: 1.45 !important;
-  }
-
-  /* 顶部返回/全屏按钮 */
-  .top-nav {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px !important;
-    margin: 12px 0 !important;
-  }
-
-  .top-nav button {
-    width: 100% !important;
-    font-size: 16px !important;
-    padding: 10px 8px !important;
-  }
-
-  /* 课文标题区：变矮 */
-  #lessonHero.lesson-hero {
-    padding: 20px 12px !important;
-    border-radius: 24px !important;
-    margin-top: 8px !important;
-  }
-
-  #lessonHero .line {
-    padding: 14px 12px !important;
-    gap: 6px 10px !important;
-    justify-content: center !important;
-  }
-
-  #lessonHero .token-hanzi,
-  #lessonHero .punct {
-    font-size: 40px !important;
-    line-height: 1.05 !important;
-  }
-
-  #lessonHero .token-pinyin {
-    font-size: 17px !important;
-  }
-
-  /* 所有大卡片压缩 */
-  .card {
-    padding: 18px 14px !important;
-    border-radius: 22px !important;
-    margin-top: 16px !important;
-  }
-
-  .card .section-title {
-    font-size: 25px !important;
-    line-height: 1.25 !important;
-  }
-
-  .student-tip {
-    font-size: 15px !important;
-    line-height: 1.5 !important;
-  }
-
-  /* Key Words：两列 */
+  /* Key words 两个一行 */
   .key-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 12px !important;
+    gap: 10px !important;
   }
 
   .key-card {
-    min-height: 128px !important;
-    padding: 12px 8px !important;
-    border-radius: 18px !important;
+    min-height: 120px !important;
+    padding: 10px 8px !important;
   }
 
   .emoji {
-    font-size: 26px !important;
+    font-size: 24px !important;
   }
 
   .small-pinyin {
-    font-size: 18px !important;
-    line-height: 1.2 !important;
+    font-size: 17px !important;
   }
 
   .hanzi {
     font-size: 30px !important;
-    line-height: 1.15 !important;
   }
 
-  .translation {
-    font-size: 14px !important;
-    line-height: 1.45 !important;
-    padding: 7px 9px !important;
-  }
-
-  /* Key Sentences */
-  .sentence-card {
-    padding: 12px !important;
-    border-radius: 18px !important;
-  }
-
-  .sentence-card .token-hanzi,
-  .sentence-card .punct {
-    font-size: 28px !important;
-  }
-
-  .sentence-card .token-pinyin {
-    font-size: 15px !important;
-  }
-
-  /* Reading toolbar：两列按钮，整齐 */
-  .reading-toolbar {
-    display: block !important;
-    margin-bottom: 14px !important;
-  }
-
+  /* Reading toolbar */
   .reading-toolbar-left,
   .reading-toolbar-right {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 10px !important;
-    margin-bottom: 10px !important;
   }
 
   .reading-toolbar button {
-    width: 100% !important;
     font-size: 15px !important;
     padding: 10px 8px !important;
-    border-radius: 999px !important;
-    white-space: normal !important;
   }
 
-  .reading-card {
-    padding: 18px 12px !important;
-    min-height: auto !important;
-  }
-
+  /* Reading 横向滑动核心 */
   .reading-box {
-    padding: 18px 12px !important;
-    border-radius: 22px !important;
-    min-height: auto !important;
+    padding: 16px 10px !important;
+    overflow-x: hidden !important;
   }
 
-  .level-label {
-    font-size: 18px !important;
-    line-height: 1.35 !important;
-    margin-bottom: 18px !important;
-    padding: 8px 13px !important;
-  }
-
-  /* Reading 句子：不要巨大，不要右侧飞出 */
   .reading-sentence-row {
+    margin: 18px 0 28px !important;
     padding-right: 0 !important;
-    margin: 22px 0 !important;
   }
 
-  .reading-sentence-row .sentence-content .line {
-    gap: 8px 10px !important;
+  .reading-sentence-row .sentence-content {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+
+  .reading-sentence-row .sentence-content .line,
+  .dialogue-sentence-block .line {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    width: max-content !important;
+    min-width: 100% !important;
+    gap: 10px !important;
     align-items: flex-end !important;
   }
 
-  .token {
+  .reading-box .token {
+    flex: 0 0 auto !important;
     min-width: auto !important;
+    white-space: nowrap !important;
   }
 
-  .token-pinyin {
+  .reading-box .token-pinyin {
     font-size: 18px !important;
-    line-height: 1.12 !important;
+    line-height: 1.1 !important;
     margin-bottom: 3px !important;
+    white-space: nowrap !important;
   }
 
-  .token-hanzi,
-  .punct {
-    font-size: 36px !important;
-    line-height: 1.08 !important;
+  .reading-box .token-hanzi,
+  .reading-box .punct,
+  .reading-box .punct-inline {
+    font-size: 38px !important;
+    line-height: 1.05 !important;
+    white-space: nowrap !important;
   }
 
-  .punct,
-  .punct-inline {
+  .reading-box .punct,
+  .reading-box .punct-inline {
+    font-size: 32px !important;
     margin-left: 0 !important;
-    margin-right: 0 !important;
-    font-size: 30px !important;
   }
 
+  /* 朗读和翻译按钮放句子下方 */
   .sentence-tools {
     position: static !important;
     transform: none !important;
     display: flex !important;
     justify-content: flex-end !important;
     gap: 8px !important;
-    margin-top: 8px !important;
+    margin-top: 6px !important;
   }
 
   .sentence-audio-btn,
@@ -1428,7 +1317,7 @@ button[onclick="speakReading()"] {
     line-height: 1.55 !important;
   }
 
-  /* 对话行 */
+  /* 对话不要变成奇怪缩进 */
   .reading-sentence-row.dialogue-row {
     display: block !important;
     padding-right: 0 !important;
@@ -1442,187 +1331,24 @@ button[onclick="speakReading()"] {
     width: 100% !important;
   }
 
-  /* Practice */
-  .practice-grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  .practice-question {
-    padding: 14px !important;
-  }
-
-  .choice {
-    width: 100% !important;
-    font-size: 16px !important;
-    padding: 12px !important;
-  }
-
-  .choices {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-  }
-
-  /* Challenge */
-  .challenge {
-    padding: 16px 14px !important;
-    border-left-width: 5px !important;
-  }
-
-  .challenge .section-title {
-    font-size: 24px !important;
-  }
-
-  .challenge .token-pinyin {
-    font-size: 17px !important;
-  }
-
-  .challenge .token-hanzi,
-  .challenge .punct {
-    font-size: 32px !important;
-  }
-
-  .fill {
-    min-width: 80px !important;
-    border-bottom-width: 3px !important;
-  }
-
-  .challenge .tip {
-    font-size: 14px !important;
-    line-height: 1.55 !important;
-  }
-}
-/* =========================================================
-   Mobile 2.1 Final Tight Fix
-   继续压缩首页标题区 + Reading 字体
-========================================================= */
-
-@media (max-width: 640px) {
-
-  /* 首页《跨越丝路》1A 区域重新整理 */
-  .book-section .section-title {
-    display: flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-    font-size: 28px !important;
-    line-height: 1.2 !important;
-    padding-bottom: 12px !important;
-  }
-
-  .book-section .section-title br {
-    display: none !important;
-  }
-
-  .book-section .section-title * {
-    font-size: inherit !important;
-    line-height: inherit !important;
-  }
-
-  .book-section {
-    padding: 18px 14px !important;
-  }
-
-  .lesson-desc {
-    display: none !important;
-  }
-
-  .lesson-card {
-    display: grid !important;
-    grid-template-columns: 1fr auto !important;
-    align-items: center !important;
-    gap: 12px !important;
-    min-height: 112px !important;
-  }
-
-  .lesson-title {
-    font-size: 24px !important;
-    line-height: 1.25 !important;
-    margin: 6px 0 !important;
-  }
-
-  .lesson-pinyin {
-    font-size: 15px !important;
-  }
-
-  .status {
-    display: none !important;
-  }
-
-  /* Reading 区域整体再收紧 */
-  .reading-box {
-    padding: 16px 10px !important;
-  }
-
-  .reading-sentence-row {
-    margin: 18px 0 26px !important;
-  }
-
-  .reading-sentence-row .sentence-content .line,
-  .dialogue-sentence-block .line {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 6px 8px !important;
-    align-items: flex-end !important;
-  }
-
-  .reading-box .token {
-    padding: 1px 2px !important;
-  }
-
-  .reading-box .token-pinyin {
-    font-size: 16px !important;
-    line-height: 1.08 !important;
-    margin-bottom: 2px !important;
-  }
-
-  .reading-box .token-hanzi,
-  .reading-box .punct,
-  .reading-box .punct-inline {
-    font-size: 32px !important;
-    line-height: 1.05 !important;
-  }
-
-  .reading-box .punct,
-  .reading-box .punct-inline {
-    font-size: 26px !important;
-    margin-left: 0 !important;
-  }
-
-  /* 每句按钮固定在句子下面右侧，不再挤在文字旁边 */
-  .sentence-tools {
-    position: static !important;
-    transform: none !important;
-    margin-top: 6px !important;
-    justify-content: flex-end !important;
-  }
-
-  .sentence-audio-btn,
-  .sentence-translate-btn {
-    width: 32px !important;
-    height: 32px !important;
-    min-width: 32px !important;
-    font-size: 14px !important;
-  }
-
-  /* 长句：避免一个词太大导致断得很丑 */
-  .token {
-    min-width: 0 !important;
-  }
-
-  /* Challenge 再缩小 */
+  /* Challenge 横向滑动 */
   .challenge .line {
-    gap: 5px 7px !important;
+    flex-wrap: nowrap !important;
+    width: max-content !important;
+    min-width: 100% !important;
+    overflow-x: auto !important;
+  }
+
+  .challenge {
+    overflow-x: auto !important;
   }
 
   .challenge .token-pinyin {
-    font-size: 15px !important;
+    font-size: 16px !important;
   }
 
   .challenge .token-hanzi,
   .challenge .punct {
-    font-size: 28px !important;
-  }
-
-  .fill {
-    min-width: 70px !important;
+    font-size: 32px !important;
   }
 }
