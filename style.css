@@ -1491,3 +1491,138 @@ button[onclick="speakReading()"] {
     line-height: 1.55 !important;
   }
 }
+/* =========================================================
+   Mobile 2.1 Final Tight Fix
+   继续压缩首页标题区 + Reading 字体
+========================================================= */
+
+@media (max-width: 640px) {
+
+  /* 首页《跨越丝路》1A 区域重新整理 */
+  .book-section .section-title {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    font-size: 28px !important;
+    line-height: 1.2 !important;
+    padding-bottom: 12px !important;
+  }
+
+  .book-section .section-title br {
+    display: none !important;
+  }
+
+  .book-section .section-title * {
+    font-size: inherit !important;
+    line-height: inherit !important;
+  }
+
+  .book-section {
+    padding: 18px 14px !important;
+  }
+
+  .lesson-desc {
+    display: none !important;
+  }
+
+  .lesson-card {
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    align-items: center !important;
+    gap: 12px !important;
+    min-height: 112px !important;
+  }
+
+  .lesson-title {
+    font-size: 24px !important;
+    line-height: 1.25 !important;
+    margin: 6px 0 !important;
+  }
+
+  .lesson-pinyin {
+    font-size: 15px !important;
+  }
+
+  .status {
+    display: none !important;
+  }
+
+  /* Reading 区域整体再收紧 */
+  .reading-box {
+    padding: 16px 10px !important;
+  }
+
+  .reading-sentence-row {
+    margin: 18px 0 26px !important;
+  }
+
+  .reading-sentence-row .sentence-content .line,
+  .dialogue-sentence-block .line {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px 8px !important;
+    align-items: flex-end !important;
+  }
+
+  .reading-box .token {
+    padding: 1px 2px !important;
+  }
+
+  .reading-box .token-pinyin {
+    font-size: 16px !important;
+    line-height: 1.08 !important;
+    margin-bottom: 2px !important;
+  }
+
+  .reading-box .token-hanzi,
+  .reading-box .punct,
+  .reading-box .punct-inline {
+    font-size: 32px !important;
+    line-height: 1.05 !important;
+  }
+
+  .reading-box .punct,
+  .reading-box .punct-inline {
+    font-size: 26px !important;
+    margin-left: 0 !important;
+  }
+
+  /* 每句按钮固定在句子下面右侧，不再挤在文字旁边 */
+  .sentence-tools {
+    position: static !important;
+    transform: none !important;
+    margin-top: 6px !important;
+    justify-content: flex-end !important;
+  }
+
+  .sentence-audio-btn,
+  .sentence-translate-btn {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    font-size: 14px !important;
+  }
+
+  /* 长句：避免一个词太大导致断得很丑 */
+  .token {
+    min-width: 0 !important;
+  }
+
+  /* Challenge 再缩小 */
+  .challenge .line {
+    gap: 5px 7px !important;
+  }
+
+  .challenge .token-pinyin {
+    font-size: 15px !important;
+  }
+
+  .challenge .token-hanzi,
+  .challenge .punct {
+    font-size: 28px !important;
+  }
+
+  .fill {
+    min-width: 70px !important;
+  }
+}
