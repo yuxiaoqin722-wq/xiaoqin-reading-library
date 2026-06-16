@@ -1575,3 +1575,36 @@ button[onclick="speakReading()"] {
     margin-top: 8px !important;
   }
 }
+/* =========================================================
+   Mobile 3.1 Fix: sentence buttons no longer float
+========================================================= */
+
+@media (max-width: 640px) {
+
+  .reading-sentence-row .sentence-content {
+    padding-right: 0 !important;
+    padding-bottom: 6px !important;
+  }
+
+  .sentence-tools {
+    position: static !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    margin-top: 6px !important;
+    margin-left: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    gap: 8px !important;
+    z-index: auto !important;
+  }
+
+  .sentence-audio-btn,
+  .sentence-translate-btn {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    font-size: 14px !important;
+  }
+}
