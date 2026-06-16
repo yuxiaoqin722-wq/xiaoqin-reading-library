@@ -1352,3 +1352,226 @@ button[onclick="speakReading()"] {
     font-size: 32px !important;
   }
 }
+/* =========================================================
+   Mobile 3.0 Reading Scroll + Compact Header
+========================================================= */
+
+@media (max-width: 640px) {
+
+  /* 首页：右侧说明文字变小 */
+  .book-section .section-title {
+    font-size: 22px !important;
+    white-space: nowrap !important;
+    overflow-x: auto !important;
+  }
+
+  .book-section .section-title * {
+    font-size: 22px !important;
+    white-space: nowrap !important;
+  }
+
+  .lesson-desc {
+    font-size: 12px !important;
+    line-height: 1.35 !important;
+    max-width: 100% !important;
+    white-space: nowrap !important;
+    overflow-x: auto !important;
+    display: block !important;
+    color: #8a7770 !important;
+  }
+
+  /* 首页 lesson 卡片：中文标题不再挤压 */
+  .lesson-card {
+    display: block !important;
+    min-height: 110px !important;
+  }
+
+  .lesson-title {
+    font-size: 22px !important;
+    white-space: nowrap !important;
+    overflow-x: auto !important;
+  }
+
+  .lesson-pinyin {
+    font-size: 14px !important;
+  }
+
+  /* 课文标题区变窄、变矮 */
+  #lessonHero.lesson-hero {
+    padding: 16px 12px !important;
+    border-radius: 22px !important;
+  }
+
+  #lessonHero .line {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    width: 100% !important;
+    justify-content: flex-start !important;
+    padding: 12px 14px !important;
+    gap: 8px !important;
+  }
+
+  #lessonHero .token {
+    flex: 0 0 auto !important;
+  }
+
+  #lessonHero .token-hanzi,
+  #lessonHero .punct {
+    font-size: 34px !important;
+    white-space: nowrap !important;
+  }
+
+  #lessonHero .token-pinyin {
+    font-size: 15px !important;
+  }
+
+  /* Reading 按钮区：A/B/C 一排，拼音/翻译一排 */
+  .reading-toolbar-left {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .reading-toolbar-right {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .reading-toolbar button {
+    font-size: 13px !important;
+    padding: 9px 6px !important;
+    min-width: 0 !important;
+    white-space: nowrap !important;
+  }
+
+  /* Reading 内容整体 */
+  .reading-card {
+    padding: 16px 10px !important;
+  }
+
+  .reading-box {
+    padding: 14px 8px !important;
+    overflow-x: hidden !important;
+  }
+
+  .level-label {
+    font-size: 16px !important;
+    padding: 7px 12px !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* 每一句：横向滑动，不强制丑换行 */
+  .reading-sentence-row {
+    position: relative !important;
+    margin: 18px 0 26px !important;
+    padding-right: 0 !important;
+  }
+
+  .reading-sentence-row .sentence-content {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    padding-right: 76px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .reading-sentence-row .sentence-content .line,
+  .dialogue-sentence-block .line {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    width: max-content !important;
+    min-width: 100% !important;
+    gap: 8px !important;
+    align-items: flex-end !important;
+  }
+
+  .reading-box .token {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+  }
+
+  .reading-box .token-pinyin {
+    font-size: 16px !important;
+    line-height: 1.08 !important;
+    margin-bottom: 2px !important;
+  }
+
+  .reading-box .token-hanzi,
+  .reading-box .punct,
+  .reading-box .punct-inline {
+    font-size: 34px !important;
+    line-height: 1.05 !important;
+    white-space: nowrap !important;
+  }
+
+  .reading-box .punct,
+  .reading-box .punct-inline {
+    font-size: 28px !important;
+    margin-left: 0 !important;
+  }
+
+  /* 发音/翻译按钮：浮动在右侧 */
+  .sentence-tools {
+    position: sticky !important;
+    right: 6px !important;
+    bottom: auto !important;
+    transform: none !important;
+    margin-top: -46px !important;
+    margin-left: auto !important;
+    width: 72px !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    gap: 6px !important;
+    z-index: 8 !important;
+    pointer-events: auto !important;
+  }
+
+  .sentence-audio-btn,
+  .sentence-translate-btn {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    font-size: 13px !important;
+    box-shadow: 0 5px 14px rgba(90,68,52,.16) !important;
+  }
+
+  /* B层 emoji：缩小并和句子同行 */
+  .reading-sentence-row.dialogue-row {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+  }
+
+  .dialogue-speaker-fixed {
+    flex: 0 0 auto !important;
+    margin: 0 !important;
+    padding-top: 16px !important;
+  }
+
+  .dialogue-speaker-fixed .token-hanzi,
+  .dialogue-speaker-fixed .punct,
+  .dialogue-speaker-fixed .punct-inline {
+    font-size: 22px !important;
+  }
+
+  .dialogue-speaker-fixed .token-pinyin {
+    display: none !important;
+  }
+
+  .dialogue-content-fixed {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  .dialogue-sentence-block {
+    margin-bottom: 12px !important;
+  }
+
+  /* 翻译 */
+  .sentence-translation {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    margin-top: 8px !important;
+  }
+}
