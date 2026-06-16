@@ -1118,11 +1118,6 @@ button[onclick="speakReading()"] {
     gap: 10px;
   }
 }
-@media (max-width: 760px) {
-  .key-grid {
-    grid-template-columns: repeat(2, minmax(120px, 1fr)) !important;
-  }
-}
 /* =========================================================
    Mobile 1.0 Fix for 跨越丝路 Reading Library
    Only affects phones. Desktop stays unchanged.
