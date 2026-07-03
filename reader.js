@@ -3,19 +3,29 @@ let currentLevel = 'A';
 
 function initLibrary() {
   renderBookFilters();
-  renderBookSections('all');
+  renderBookSections('1A');
 }
 
 function renderBookFilters() {
   const container = document.getElementById('bookFilters');
   const books = Object.keys(BOOK_THEMES);
 
-  container.innerHTML = `
-    <button class="active" onclick="renderBookSections('all', this)">All</button>
-    ${books.map(book => `
-      <button onclick="renderBookSections('${book}', this)">${book}</button>
-    `).join('')}
-  `;
+  container.innerHTML = books.map(book => {
+    const theme = BOOK_THEMES[book];
+
+    return `
+      <button
+        class="book-filter-btn ${book === '1A' ? 'active' : ''}"
+        style="
+          --book-color:${theme.color};
+          --book-soft:${theme.soft};
+          --book-dark:${theme.dark};
+        "
+        onclick="renderBookSections('${book}', this)">
+        ${book}
+      </button>
+    `;
+  }).join('');
 }
 
 function renderBookSections(filterBook = 'all', btn = null) {
@@ -168,13 +178,44 @@ function openLesson(lessonId) {
   applyLessonTheme(lesson);
   renderLessonHero(lesson);
   renderKeyWords(lesson);
-  renderKeySentences(lesson);
-  renderPractice(lesson);
-  renderChallenge(lesson);
+renderKeySentences(lesson);
+renderPractice(lesson);
+// renderChallenge(lesson);
 
-  showLevel('A', document.querySelector('#lessonToolbar button'));
+  // Force open Reading module
+document.querySelectorAll('.lesson-module').forEach(module => {
+  module.classList.add('hidden');
+});
 
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+document.getElementById('readingModule').classList.remove('hidden');
+
+// Force active Reading tab
+document.querySelectorAll('.lesson-module-btn').forEach(button => {
+  button.classList.remove('active');
+});
+
+document.querySelectorAll('.lesson-module-btn')[0].classList.add('active');
+
+// Force render Level A directly
+currentLevel = 'A';
+
+document.querySelectorAll('#lessonToolbar button').forEach(button => {
+  button.classList.remove('active');
+});
+
+document.querySelectorAll('#lessonToolbar button')[0].classList.add('active');
+
+const data = currentLesson.readings.A;
+
+document.getElementById('reading').innerHTML = `
+  <div class="level-label">${getEnglishLevelLabel('A', data)}</div>
+  ${data.lines.map(line => renderReadingParagraph(line)).join('')}
+  <div class="translation">${data.translation}</div>
+`;
+
+hideMeaning();
+
+window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function applyLessonTheme(lesson) {
@@ -297,32 +338,370 @@ function renderKeySentences(lesson) {
   `).join('');
 }
 
+let currentQuizIndex = 0;
+let currentQuizQuestions = [];
+let currentQuizAnswers = [];
+
 function renderPractice(lesson) {
+  currentQuizIndex = 0;
+  currentQuizQuestions = generateQuizQuestions(lesson);
+  currentQuizAnswers = new Array(currentQuizQuestions.length).fill(null);
+  renderQuizQuestion();
+}
+
+function cleanQuestionText(text) {
+  return String(text || '')
+    .replace(/^\s*\d+\s*[.。]\s*/, '')
+    .trim();
+}
+
+function extractChineseTarget(text) {
+  const str = String(text || '');
+
+  const quoted = str.match(/[“"]([^”"]+)[”"]/);
+  if (quoted && /[\u4e00-\u9fff]/.test(quoted[1])) {
+    return quoted[1].replace(/[。？！?！]/g, '').trim();
+  }
+
+  const chineseOnly = str
+    .replace(/^\s*\d+\s*[.。]\s*/, '')
+    .replace(/是什么意思/g, '')
+    .replace(/是哪一个/g, '')
+    .replace(/什么意思/g, '')
+    .replace(/[“”"？?]/g, '')
+    .trim();
+
+  return /[\u4e00-\u9fff]/.test(chineseOnly) ? chineseOnly : '';
+}
+
+function extractPinyinTarget(text) {
+  const str = String(text || '');
+
+  const quoted = str.match(/[“"]([^”"]+)[”"]/);
+  if (quoted) {
+    return quoted[1].trim();
+  }
+
+  return str
+    .replace(/^\s*\d+\s*[.。]\s*/, '')
+    .replace(/shì shénme yìsi\??/i, '')
+    .replace(/shì nǎ yí ge\??/i, '')
+    .replace(/[“”"？?]/g, '')
+    .trim();
+}
+
+function extractEnglishTarget(text) {
+  const str = String(text || '');
+
+  const quoted = str.match(/[“"]([^”"]+)[”"]/);
+  if (quoted && !/[\u4e00-\u9fff]/.test(quoted[1])) {
+    return quoted[1].trim();
+  }
+
+  return '';
+}
+
+function generateQuizQuestions(lesson) {
+  const quiz = [];
+
+  // 1. Keep original practice questions
+  if (Array.isArray(lesson.practice)) {
+    lesson.practice.forEach(item => {
+     const cleanQuestion = cleanQuestionText(item.question || '');
+const englishTarget = extractEnglishTarget(item.question || '');
+const chineseTarget = englishTarget ? '' : extractChineseTarget(item.prompt || item.question || '');
+const pinyinTarget = item.promptPinyin || extractPinyinTarget(item.pinyin || '');
+
+quiz.push({
+  type: englishTarget ? 'english-to-chinese' : 'practice',
+  instruction: item.translation || 'Choose the correct answer.',
+  question: cleanQuestion,
+  pinyin: '',
+  english: englishTarget,
+  prompt: chineseTarget || item.prompt || '',
+  promptPinyin: chineseTarget ? pinyinTarget : (item.promptPinyin || ''),
+  choices: item.choices || []
+});
+    });
+  }
+
+  // 2. Key Words: Chinese -> English meaning
+  if (Array.isArray(lesson.keyWords)) {
+    lesson.keyWords.slice(0, 3).forEach(word => {
+      const correctMeaning = getEnglishMeaning(word.translation);
+      const wrongChoices = lesson.keyWords
+        .filter(w => w.text !== word.text)
+        .map(w => getEnglishMeaning(w.translation))
+        .filter(Boolean);
+
+      quiz.push({
+        type: 'word-meaning',
+        instruction: 'Choose the correct meaning.',
+        chinese: word.text,
+        pinyin: word.pinyin,
+        choices: makeChoices(correctMeaning, wrongChoices)
+      });
+    });
+  }
+
+  // 3. Key Words: English -> Chinese
+  if (Array.isArray(lesson.keyWords)) {
+    lesson.keyWords.slice(0, 2).forEach(word => {
+      const meaning = getEnglishMeaning(word.translation);
+      const wrongChoices = lesson.keyWords
+        .filter(w => w.text !== word.text)
+        .map(w => w.text);
+
+      quiz.push({
+        type: 'english-to-chinese',
+        instruction: 'Choose the correct Chinese word.',
+        english: meaning,
+        choices: makeChoices(word.text, wrongChoices)
+      });
+    });
+  }
+
+  // 4. Key Sentences: Chinese sentence -> English meaning
+  if (Array.isArray(lesson.keySentences)) {
+    lesson.keySentences.slice(0, 2).forEach(sentence => {
+      const correctMeaning = getEnglishMeaning(sentence.translation);
+      const wrongChoices = lesson.keySentences
+        .filter(s => s !== sentence)
+        .map(s => getEnglishMeaning(s.translation))
+        .filter(Boolean);
+
+      if (correctMeaning && wrongChoices.length) {
+        quiz.push({
+          type: 'sentence-meaning',
+          instruction: 'Choose the correct meaning.',
+          tokens: sentence.tokens,
+          choices: makeChoices(correctMeaning, wrongChoices)
+        });
+      }
+    });
+  }
+
+  // 5. Reading A: sentence translation questions
+  const readingA = lesson.readings && lesson.readings.A && Array.isArray(lesson.readings.A.lines)
+    ? lesson.readings.A.lines
+    : [];
+
+  readingA.slice(0, 2).forEach(line => {
+    const tokens = Array.isArray(line) ? line : line.tokens;
+    const translation = Array.isArray(line) ? '' : line.translation;
+    const correctMeaning = getEnglishMeaning(translation);
+
+    if (!tokens || !correctMeaning) return;
+
+    const wrongChoices = readingA
+      .filter(other => other !== line)
+      .map(other => getEnglishMeaning(Array.isArray(other) ? '' : other.translation))
+      .filter(Boolean);
+
+    if (wrongChoices.length) {
+      quiz.push({
+        type: 'reading-meaning',
+        instruction: 'Read and choose the correct meaning.',
+        tokens,
+        choices: makeChoices(correctMeaning, wrongChoices)
+      });
+    }
+  });
+
+  return shuffleArray(quiz).slice(0, 10);
+}
+
+function renderQuizQuestion() {
   const container = document.getElementById('practiceGrid');
 
-  container.innerHTML = lesson.practice.map(item => `
-    <div class="practice-question">
-      <strong>${item.question}</strong>
-      <span class="inline-pinyin">${item.pinyin || ''}</span>
-      <div class="translation">${item.translation || ''}</div>
+  if (!currentQuizQuestions.length) {
+    container.innerHTML = `<div class="quiz-card">No quiz yet.</div>`;
+    return;
+  }
 
-      ${item.prompt ? `
-        <p>
-          <b>${item.prompt}</b>
-          <span class="inline-pinyin">${item.promptPinyin || ''}</span>
-        </p>
+  const item = currentQuizQuestions[currentQuizIndex];
+  const answer = currentQuizAnswers[currentQuizIndex];
+  const progressPercent = ((currentQuizIndex + 1) / currentQuizQuestions.length) * 100;
+
+  container.innerHTML = `
+    <div class="quiz-card">
+      <div class="quiz-top">
+        <div class="quiz-progress">Question ${currentQuizIndex + 1} / ${currentQuizQuestions.length}</div>
+        <div class="quiz-progress-bar">
+          <div style="width:${progressPercent}%"></div>
+        </div>
+      </div>
+
+      <div class="quiz-instruction">${item.instruction || 'Choose the correct answer.'}</div>
+
+      ${renderQuizPrompt(item)}
+
+      <div class="quiz-choices">
+        ${item.choices.map(choice => {
+          const selected = answer && answer.selected === choice.text;
+          const shouldShowCorrect = answer && choice.correct;
+          const shouldShowWrong = selected && answer && !answer.correct;
+
+          return `
+            <button
+              class="quiz-choice ${shouldShowCorrect ? 'correct' : ''} ${shouldShowWrong ? 'wrong' : ''}"
+              onclick="checkQuizChoice(this, ${choice.correct ? 'true' : 'false'}, '${escapeForAttribute(choice.text)}')"
+              ${answer ? 'disabled' : ''}>
+              ${choice.text}
+              ${choice.pinyin ? `<span class="inline-pinyin">${choice.pinyin}</span>` : ''}
+            </button>
+          `;
+        }).join('')}
+      </div>
+
+      ${answer ? `
+        <div class="quiz-feedback ${answer.correct ? 'correct' : 'wrong'}">
+          ${answer.correct ? '✓ Correct!' : '✗ Not yet. The correct answer is shown above.'}
+        </div>
       ` : ''}
 
-      <div class="choices">
-        ${item.choices.map(choice => `
-          <span class="choice" onclick="check(this, ${choice.correct ? 'true' : 'false'})">
-            ${choice.text}
-            ${choice.pinyin ? `<br><span class="inline-pinyin">${choice.pinyin}</span>` : ''}
-          </span>
-        `).join('')}
+      <div class="quiz-nav">
+        <button onclick="prevQuizQuestion()" ${currentQuizIndex === 0 ? 'disabled' : ''}>← Previous</button>
+
+        ${currentQuizIndex === currentQuizQuestions.length - 1
+          ? `<button onclick="finishQuiz()">Finish</button>`
+          : `<button onclick="nextQuizQuestion()">Next →</button>`
+        }
       </div>
     </div>
-  `).join('');
+  `;
+}
+
+function renderQuizPrompt(item) {
+  if (item.tokens) {
+    return `
+      <div class="quiz-chinese-card">
+        ${renderLine(item.tokens)}
+      </div>
+    `;
+  }
+
+  if (item.chinese) {
+    return `
+      <div class="quiz-chinese-card">
+        <div class="quiz-pinyin">${item.pinyin || ''}</div>
+        <div class="quiz-hanzi">${item.chinese}</div>
+      </div>
+    `;
+  }
+
+  if (item.english) {
+    return `
+      <div class="quiz-english-card">
+        ${item.english}
+      </div>
+    `;
+  }
+
+  if (item.prompt) {
+  const hasChinese = /[\u4e00-\u9fff]/.test(item.prompt);
+
+  return `
+    <div class="quiz-chinese-card">
+      ${item.promptPinyin ? `<div class="quiz-pinyin">${item.promptPinyin}</div>` : ''}
+      <div class="${hasChinese ? 'quiz-hanzi' : 'quiz-question-text'}">
+        ${item.prompt}
+      </div>
+    </div>
+  `;
+}
+
+  return `
+    <div class="quiz-question-text">
+      ${item.question || ''}
+      ${item.pinyin ? `<span class="inline-pinyin">${item.pinyin}</span>` : ''}
+    </div>
+  `;
+}
+
+function prevQuizQuestion() {
+  if (currentQuizIndex > 0) {
+    currentQuizIndex--;
+    renderQuizQuestion();
+  }
+}
+
+function nextQuizQuestion() {
+  if (currentQuizIndex < currentQuizQuestions.length - 1) {
+    currentQuizIndex++;
+    renderQuizQuestion();
+  }
+}
+
+function checkQuizChoice(btn, isCorrect, selectedText) {
+  if (currentQuizAnswers[currentQuizIndex]) return;
+
+  currentQuizAnswers[currentQuizIndex] = {
+    selected: selectedText,
+    correct: isCorrect
+  };
+
+  renderQuizQuestion();
+}
+
+function finishQuiz() {
+  const total = currentQuizQuestions.length;
+  const correct = currentQuizAnswers.filter(answer => answer && answer.correct).length;
+  const wrong = total - correct;
+  const percent = total ? Math.round((correct / total) * 100) : 0;
+
+  const container = document.getElementById('practiceGrid');
+
+  container.innerHTML = `
+    <div class="quiz-card quiz-result-card">
+      <div class="quiz-result-title">🏆 Quiz Finished!</div>
+
+      <div class="quiz-score">${correct} / ${total}</div>
+      <div class="quiz-score-percent">${percent}%</div>
+
+      <div class="quiz-result-message">
+        ${wrong === 0
+          ? 'Excellent! You got everything correct.'
+          : `You got ${wrong} question${wrong > 1 ? 's' : ''} wrong. Try again!`
+        }
+      </div>
+
+      <div class="quiz-nav quiz-result-actions">
+        <button onclick="restartQuiz()">Do Again</button>
+        <button onclick="showLessonModule('reading', document.querySelector('.lesson-module-btn'))">Back to Reading</button>
+      </div>
+    </div>
+  `;
+}
+
+function restartQuiz() {
+  if (!currentLesson) return;
+  currentQuizIndex = 0;
+  currentQuizQuestions = generateQuizQuestions(currentLesson);
+  currentQuizAnswers = new Array(currentQuizQuestions.length).fill(null);
+  renderQuizQuestion();
+}
+
+function getEnglishMeaning(translation) {
+  if (!translation) return '';
+  return String(translation).split('/')[0].trim();
+}
+
+function makeChoices(correct, wrongChoices) {
+  const cleanWrong = [...new Set(wrongChoices)]
+    .filter(item => item && item !== correct)
+    .slice(0, 3);
+
+  const choices = [
+    { text: correct, correct: true },
+    ...cleanWrong.map(text => ({ text, correct: false }))
+  ];
+
+  return shuffleArray(choices);
+}
+
+function shuffleArray(array) {
+  return [...array].sort(() => Math.random() - 0.5);
 }
 
 function renderChallenge(lesson) {
@@ -334,6 +713,48 @@ function renderChallenge(lesson) {
     <div class="translation">${lesson.challenge.translation}</div>
     <div class="tip">${lesson.challenge.tip}</div>
   `;
+}
+
+function showLessonModule(moduleName, btn = null) {
+  document.querySelectorAll('.lesson-module').forEach(module => {
+    module.classList.add('hidden');
+  });
+
+  const target = document.getElementById(moduleName + 'Module');
+  if (target) {
+    target.classList.remove('hidden');
+  }
+
+  document.querySelectorAll('.lesson-module-btn').forEach(button => {
+    button.classList.remove('active');
+  });
+
+  if (btn) {
+    btn.classList.add('active');
+  }
+
+  hideMeaning();
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function cleanLevelLabel(label) {
+  return String(label || '')
+    .replace('初级｜', '· ')
+    .replace('中级｜', '· ')
+    .replace('高级｜', '· ')
+    .replace('初级 |', '· ')
+    .replace('中级 |', '· ')
+    .replace('高级 |', '· ');
+}
+
+function getEnglishLevelLabel(level, data) {
+  const tip = String(data.tip || '')
+    .replace(/^Reading Goal:\s*/i, '')
+    .replace(/^Speaking Goal:\s*/i, '')
+    .trim();
+
+  return `Level ${level} · ${tip}`;
 }
 
 function showLevel(level, btn) {
@@ -350,10 +771,9 @@ function showLevel(level, btn) {
   const data = currentLesson.readings[level];
 
   const html = `
-    <div class="level-label">${data.label}</div>
-    ${data.lines.map(line => renderReadingParagraph(line)).join('')}
-    <div class="translation">${data.translation}</div>
-    <div class="tip">${data.tip}</div>
+    <div class="level-label">${getEnglishLevelLabel(level, data)}</div>
+${data.lines.map(line => renderReadingParagraph(line)).join('')}
+<div class="translation">${data.translation}</div>
   `;
 
   document.getElementById('reading').innerHTML = html;
