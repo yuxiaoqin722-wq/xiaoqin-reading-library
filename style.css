@@ -67,6 +67,7 @@ body {
 }
 
 .hero {
+  position: relative;
   background: linear-gradient(135deg, #f2fbf6 0%, #eef4ff 46%, #fff0e8 100%);
 }
 
@@ -1118,493 +1119,1058 @@ button[onclick="speakReading()"] {
     gap: 10px;
   }
 }
+@media (max-width: 760px) {
+  .key-grid {
+    grid-template-columns: repeat(2, minmax(120px, 1fr)) !important;
+  }
+}
 /* =========================================================
-   Mobile Clean Version
-   首页紧凑 + Reading 横向滑动
+   Home Single-Book Switch Layout
 ========================================================= */
 
-@media (max-width: 640px) {
+#bookFilters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 24px 0 28px;
+}
 
-  .page {
-    width: 100%;
-    padding: 14px 10px 36px !important;
-    overflow-x: hidden;
-  }
+.book-filter-btn {
+  min-width: 74px;
+  height: 52px;
+  padding: 0 20px;
+  border-radius: 22px;
+  font-size: 22px;
+  font-weight: 900;
+  background: var(--book-soft);
+  color: var(--book-dark);
+  border: 2px solid transparent;
+  box-shadow: 0 8px 18px rgba(90,68,52,.10);
+}
 
-  /* 首页筛选按钮 */
+.book-filter-btn.active {
+  min-width: 104px;
+  height: 66px;
+  font-size: 30px;
+  background: var(--book-color) !important;
+  color: #fff !important;
+  border-color: rgba(255,255,255,.9);
+  transform: translateY(-3px);
+}
+
+.book-section {
+  margin-top: 16px;
+}
+
+.book-section .section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+}
+
+.lesson-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 760px) {
   #bookFilters {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px !important;
-    margin: 16px 0 20px !important;
+    gap: 8px;
+    margin: 18px 0 20px;
   }
 
-  #bookFilters button {
-    height: 40px !important;
-    font-size: 17px !important;
-    padding: 0 !important;
-    min-width: 0 !important;
+  .book-filter-btn {
+    min-width: 48px;
+    height: 38px;
+    padding: 0 10px;
+    font-size: 16px;
+    border-radius: 16px;
   }
 
-  /* 首页 book section */
-  .book-section {
-    padding: 16px 12px !important;
-    border-radius: 22px !important;
+  .book-filter-btn.active {
+    min-width: 64px;
+    height: 46px;
+    font-size: 21px;
   }
 
   .book-section .section-title {
-    display: flex !important;
-    align-items: center !important;
-    gap: 10px !important;
-    flex-wrap: nowrap !important;
-    overflow-x: auto !important;
-    white-space: nowrap !important;
-    font-size: 24px !important;
-    line-height: 1.2 !important;
-    padding-bottom: 10px !important;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow-x: auto;
   }
 
-  .book-section .section-title * {
-    font-size: 24px !important;
-    line-height: 1.2 !important;
-    white-space: nowrap !important;
+  .book-section .section-title h2 {
+    font-size: 22px !important;
+    white-space: nowrap;
   }
 
-  .book-section .section-title br {
-    display: none !important;
+  .book-section .section-title span {
+    font-size: 11px !important;
+    white-space: nowrap;
+    opacity: .7;
   }
 
-  .lesson-desc {
-    font-size: 13px !important;
-    line-height: 1.4 !important;
-    max-width: none !important;
-    white-space: nowrap !important;
-    overflow-x: auto !important;
+  .lesson-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
   }
 
   .lesson-card {
-    min-height: 118px !important;
-    padding: 14px !important;
-    border-radius: 18px !important;
-  }
-
-  .lesson-title {
-    font-size: 23px !important;
-    line-height: 1.25 !important;
-    white-space: nowrap !important;
-    overflow-x: auto !important;
-    display: block !important;
-  }
-
-  .lesson-pinyin {
-    font-size: 15px !important;
-    white-space: nowrap !important;
-    overflow-x: auto !important;
-    display: block !important;
-  }
-
-  /* Key words 两个一行 */
-  .key-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 10px !important;
-  }
-
-  .key-card {
     min-height: 120px !important;
     padding: 10px 8px !important;
+    border-radius: 16px !important;
   }
 
-  .emoji {
-    font-size: 24px !important;
-  }
-
-  .small-pinyin {
-    font-size: 17px !important;
-  }
-
-  .hanzi {
-    font-size: 30px !important;
-  }
-
-  /* Reading toolbar */
-  .reading-toolbar-left,
-  .reading-toolbar-right {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 10px !important;
-  }
-
-  .reading-toolbar button {
-    font-size: 15px !important;
-    padding: 10px 8px !important;
-  }
-
-  /* Reading 横向滑动核心 */
-  .reading-box {
-    padding: 16px 10px !important;
-    overflow-x: hidden !important;
-  }
-
-  .reading-sentence-row {
-    margin: 18px 0 28px !important;
-    padding-right: 0 !important;
-  }
-
-  .reading-sentence-row .sentence-content {
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 8px;
-  }
-
-  .reading-sentence-row .sentence-content .line,
-  .dialogue-sentence-block .line {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    width: max-content !important;
-    min-width: 100% !important;
-    gap: 10px !important;
-    align-items: flex-end !important;
-  }
-
-  .reading-box .token {
-    flex: 0 0 auto !important;
-    min-width: auto !important;
-    white-space: nowrap !important;
-  }
-
-  .reading-box .token-pinyin {
-    font-size: 18px !important;
-    line-height: 1.1 !important;
-    margin-bottom: 3px !important;
-    white-space: nowrap !important;
-  }
-
-  .reading-box .token-hanzi,
-  .reading-box .punct,
-  .reading-box .punct-inline {
-    font-size: 38px !important;
-    line-height: 1.05 !important;
-    white-space: nowrap !important;
-  }
-
-  .reading-box .punct,
-  .reading-box .punct-inline {
-    font-size: 32px !important;
-    margin-left: 0 !important;
-  }
-
-  /* 朗读和翻译按钮放句子下方 */
-  .sentence-tools {
-    position: static !important;
-    transform: none !important;
-    display: flex !important;
-    justify-content: flex-end !important;
-    gap: 8px !important;
-    margin-top: 6px !important;
-  }
-
-  .sentence-audio-btn,
-  .sentence-translate-btn {
-    width: 34px !important;
-    height: 34px !important;
-    min-width: 34px !important;
-    font-size: 15px !important;
-  }
-
-  .sentence-translation {
-    font-size: 15px !important;
-    line-height: 1.55 !important;
-  }
-
-  /* 对话不要变成奇怪缩进 */
-  .reading-sentence-row.dialogue-row {
-    display: block !important;
-    padding-right: 0 !important;
-  }
-
-  .dialogue-speaker-fixed {
-    margin-bottom: 4px !important;
-  }
-
-  .dialogue-content-fixed {
-    width: 100% !important;
-  }
-
-  /* Challenge 横向滑动 */
-  .challenge .line {
-    flex-wrap: nowrap !important;
-    width: max-content !important;
-    min-width: 100% !important;
-    overflow-x: auto !important;
-  }
-
-  .challenge {
-    overflow-x: auto !important;
-  }
-
-  .challenge .token-pinyin {
-    font-size: 16px !important;
-  }
-
-  .challenge .token-hanzi,
-  .challenge .punct {
-    font-size: 32px !important;
-  }
-}
-/* =========================================================
-   Mobile 3.0 Reading Scroll + Compact Header
-========================================================= */
-
-@media (max-width: 640px) {
-
-  /* 首页：右侧说明文字变小 */
-  .book-section .section-title {
-    font-size: 22px !important;
-    white-space: nowrap !important;
-    overflow-x: auto !important;
-  }
-
-  .book-section .section-title * {
-    font-size: 22px !important;
-    white-space: nowrap !important;
-  }
-
-  .lesson-desc {
-    font-size: 12px !important;
-    line-height: 1.35 !important;
-    max-width: 100% !important;
-    white-space: nowrap !important;
-    overflow-x: auto !important;
-    display: block !important;
-    color: #8a7770 !important;
-  }
-
-  /* 首页 lesson 卡片：中文标题不再挤压 */
-  .lesson-card {
-    display: block !important;
-    min-height: 110px !important;
+  .lesson-number {
+    font-size: 10px !important;
+    padding: 3px 7px !important;
+    margin-bottom: 6px !important;
   }
 
   .lesson-title {
-    font-size: 22px !important;
-    white-space: nowrap !important;
-    overflow-x: auto !important;
+    font-size: 16px !important;
+    line-height: 1.25 !important;
   }
 
   .lesson-pinyin {
-    font-size: 14px !important;
+    font-size: 11px !important;
+    line-height: 1.25 !important;
   }
 
-  /* 课文标题区变窄、变矮 */
-  #lessonHero.lesson-hero {
-    padding: 16px 12px !important;
-    border-radius: 22px !important;
-  }
-
-  #lessonHero .line {
-    flex-wrap: nowrap !important;
-    overflow-x: auto !important;
-    width: 100% !important;
-    justify-content: flex-start !important;
-    padding: 12px 14px !important;
-    gap: 8px !important;
-  }
-
-  #lessonHero .token {
-    flex: 0 0 auto !important;
-  }
-
-  #lessonHero .token-hanzi,
-  #lessonHero .punct {
-    font-size: 34px !important;
-    white-space: nowrap !important;
-  }
-
-  #lessonHero .token-pinyin {
-    font-size: 15px !important;
-  }
-
-  /* Reading 按钮区：A/B/C 一排，拼音/翻译一排 */
-  .reading-toolbar-left {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 8px !important;
-  }
-
-  .reading-toolbar-right {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 8px !important;
-  }
-
-  .reading-toolbar button {
-    font-size: 13px !important;
-    padding: 9px 6px !important;
-    min-width: 0 !important;
-    white-space: nowrap !important;
-  }
-
-  /* Reading 内容整体 */
-  .reading-card {
-    padding: 16px 10px !important;
-  }
-
-  .reading-box {
-    padding: 14px 8px !important;
-    overflow-x: hidden !important;
-  }
-
-  .level-label {
-    font-size: 16px !important;
-    padding: 7px 12px !important;
-    margin-bottom: 16px !important;
-  }
-
-  /* 每一句：横向滑动，不强制丑换行 */
-  .reading-sentence-row {
-    position: relative !important;
-    margin: 18px 0 26px !important;
-    padding-right: 0 !important;
-  }
-
-  .reading-sentence-row .sentence-content {
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    -webkit-overflow-scrolling: touch;
-    padding-right: 76px !important;
-    padding-bottom: 8px !important;
-  }
-
-  .reading-sentence-row .sentence-content .line,
-  .dialogue-sentence-block .line {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    width: max-content !important;
-    min-width: 100% !important;
-    gap: 8px !important;
-    align-items: flex-end !important;
-  }
-
-  .reading-box .token {
-    flex: 0 0 auto !important;
-    white-space: nowrap !important;
-  }
-
-  .reading-box .token-pinyin {
-    font-size: 16px !important;
-    line-height: 1.08 !important;
-    margin-bottom: 2px !important;
-  }
-
-  .reading-box .token-hanzi,
-  .reading-box .punct,
-  .reading-box .punct-inline {
-    font-size: 34px !important;
-    line-height: 1.05 !important;
-    white-space: nowrap !important;
-  }
-
-  .reading-box .punct,
-  .reading-box .punct-inline {
-    font-size: 28px !important;
-    margin-left: 0 !important;
-  }
-
-  /* 发音/翻译按钮：浮动在右侧 */
-  .sentence-tools {
-    position: sticky !important;
-    right: 6px !important;
-    bottom: auto !important;
-    transform: none !important;
-    margin-top: -46px !important;
-    margin-left: auto !important;
-    width: 72px !important;
-    display: flex !important;
-    justify-content: flex-end !important;
-    gap: 6px !important;
-    z-index: 8 !important;
-    pointer-events: auto !important;
-  }
-
-  .sentence-audio-btn,
-  .sentence-translate-btn {
-    width: 30px !important;
-    height: 30px !important;
-    min-width: 30px !important;
-    font-size: 13px !important;
-    box-shadow: 0 5px 14px rgba(90,68,52,.16) !important;
-  }
-
-  /* B层 emoji：缩小并和句子同行 */
-  .reading-sentence-row.dialogue-row {
-    display: flex !important;
-    align-items: flex-start !important;
-    gap: 6px !important;
-  }
-
-  .dialogue-speaker-fixed {
-    flex: 0 0 auto !important;
-    margin: 0 !important;
-    padding-top: 16px !important;
-  }
-
-  .dialogue-speaker-fixed .token-hanzi,
-  .dialogue-speaker-fixed .punct,
-  .dialogue-speaker-fixed .punct-inline {
-    font-size: 22px !important;
-  }
-
-  .dialogue-speaker-fixed .token-pinyin {
-    display: none !important;
-  }
-
-  .dialogue-content-fixed {
-    flex: 1 1 auto !important;
-    min-width: 0 !important;
-  }
-
-  .dialogue-sentence-block {
-    margin-bottom: 12px !important;
-  }
-
-  /* 翻译 */
-  .sentence-translation {
-    font-size: 14px !important;
-    line-height: 1.5 !important;
-    margin-top: 8px !important;
+  .copy-link-btn {
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    font-size: 11px !important;
+    top: 8px !important;
+    right: 8px !important;
   }
 }
 /* =========================================================
-   Mobile 3.1 Fix: sentence buttons no longer float
+   Home Dashboard Tight Upgrade
+   Bigger book buttons + smaller lesson cards
 ========================================================= */
 
-@media (max-width: 640px) {
+/* 顶部 1A/1B/1C 按钮更大、更明显 */
+.book-filter-btn {
+  min-width: 92px !important;
+  height: 58px !important;
+  font-size: 28px !important;
+  border-radius: 24px !important;
+  background: color-mix(in srgb, var(--book-color) 28%, white) !important;
+  color: var(--book-dark) !important;
+}
 
-  .reading-sentence-row .sentence-content {
-    padding-right: 0 !important;
-    padding-bottom: 6px !important;
+.book-filter-btn.active {
+  min-width: 118px !important;
+  height: 68px !important;
+  font-size: 36px !important;
+  background: var(--book-color) !important;
+  color: #fff !important;
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 12px 26px rgba(90,68,52,.18) !important;
+}
+
+/* 首页书本区整体更紧凑 */
+.book-section {
+  margin-top: 12px !important;
+  padding: 18px 22px !important;
+  border-radius: 26px !important;
+}
+
+/* 顶部标题区压缩 */
+.book-section .section-title {
+  padding-bottom: 10px !important;
+  margin-bottom: 14px !important;
+}
+
+.book-section .section-title h2 {
+  font-size: 36px !important;
+}
+
+.book-section .section-title span {
+  font-size: 13px !important;
+}
+
+/* 9课卡片更小，保持三列 */
+.lesson-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+}
+
+.lesson-card {
+  min-height: 130px !important;
+  padding: 14px 16px !important;
+  border-radius: 20px !important;
+}
+
+.lesson-number {
+  font-size: 12px !important;
+  padding: 4px 9px !important;
+  margin-bottom: 8px !important;
+}
+
+.lesson-title {
+  font-size: 21px !important;
+  line-height: 1.25 !important;
+  margin-bottom: 6px !important;
+  -webkit-line-clamp: 1 !important;
+}
+
+.lesson-pinyin {
+  font-size: 13px !important;
+  line-height: 1.25 !important;
+  -webkit-line-clamp: 1 !important;
+}
+
+.lesson-card > div[style*="font-size:60px"] {
+  font-size: 42px !important;
+  right: 14px !important;
+  bottom: 8px !important;
+}
+
+/* 手机端也更紧凑 */
+@media (max-width: 760px) {
+  .book-filter-btn {
+    min-width: 58px !important;
+    height: 42px !important;
+    font-size: 18px !important;
   }
 
-  .sentence-tools {
-    position: static !important;
-    right: auto !important;
-    bottom: auto !important;
-    transform: none !important;
-    margin-top: 6px !important;
-    margin-left: 0 !important;
-    width: 100% !important;
-    display: flex !important;
-    justify-content: flex-end !important;
+  .book-filter-btn.active {
+    min-width: 72px !important;
+    height: 50px !important;
+    font-size: 24px !important;
+  }
+
+  .book-section .section-title h2 {
+    font-size: 22px !important;
+  }
+
+  .book-section .section-title span {
+    font-size: 11px !important;
+  }
+
+  .lesson-card {
+    min-height: 110px !important;
+    padding: 10px 8px !important;
+  }
+
+  .lesson-title {
+    font-size: 15px !important;
+  }
+
+  .lesson-pinyin {
+    font-size: 10px !important;
+  }
+}
+/* =========================================================
+   Lesson Module Tabs
+   Words / Reading / Practice / Challenge
+========================================================= */
+
+.lesson-module-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 18px 0 20px;
+  padding: 12px 0;
+  background: rgba(251,247,241,.9);
+  backdrop-filter: blur(8px);
+}
+
+.lesson-module-btn {
+  min-height: 58px;
+  border-radius: 24px;
+  font-size: 20px;
+  font-weight: 900;
+  background: #fff;
+  color: var(--active-dark);
+  border: 2px solid var(--active-soft);
+}
+
+.lesson-module-btn.active {
+  background: var(--active-color) !important;
+  color: #fff !important;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 26px rgba(90,68,52,.18);
+}
+
+.lesson-module {
+  animation: lessonModuleFade .18s ease;
+}
+
+@keyframes lessonModuleFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 760px) {
+  .lesson-module-tabs {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 14px 0 16px;
+  }
+
+  .lesson-module-btn {
+    min-height: 46px;
+    font-size: 16px;
+    border-radius: 18px;
+    padding: 8px 6px;
+  }
+}
+/* =========================================================
+   Quiz Mode
+   Practice as one-question-at-a-time quiz
+========================================================= */
+
+.practice-grid {
+  display: block !important;
+}
+
+.quiz-card {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 26px;
+  border-radius: 26px;
+  background: linear-gradient(180deg, #fff, rgba(255,255,255,.78));
+  border: 1px solid rgba(90,68,52,.08);
+  box-shadow: 0 10px 24px rgba(90,68,52,.08);
+}
+
+.quiz-progress {
+  display: inline-block;
+  margin-bottom: 18px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--active-soft);
+  color: var(--active-dark);
+  font-weight: 900;
+  font-size: 16px;
+}
+
+.quiz-question {
+  font-size: 22px;
+  line-height: 1.55;
+  color: #493730;
+  margin-bottom: 20px;
+}
+
+.quiz-prompt {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255,255,255,.72);
+  border: 1px dashed rgba(90,68,52,.14);
+  font-size: 26px;
+  text-align: center;
+}
+
+.quiz-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.quiz-choice {
+  width: 100%;
+  min-height: 72px;
+  border-radius: 20px;
+  padding: 14px 16px;
+  font-size: 20px;
+  line-height: 1.35;
+  text-align: center;
+  background: #fff;
+  border: 2px solid rgba(90,68,52,.10);
+  color: #4b3b35;
+}
+
+.quiz-choice.correct {
+  background: #e7f6ed !important;
+  border-color: #7ac895 !important;
+  color: #2f7a4e !important;
+}
+
+.quiz-choice.wrong {
+  background: #ffecec !important;
+  border-color: #e6a0a0 !important;
+  color: #a94343 !important;
+}
+
+.quiz-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.quiz-nav button {
+  min-width: 150px;
+  min-height: 48px;
+  font-size: 17px;
+}
+
+.quiz-nav button:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (max-width: 760px) {
+  .lesson-module-tabs {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .quiz-card {
+    padding: 18px 14px;
+  }
+
+  .quiz-question {
+    font-size: 18px;
+  }
+
+  .quiz-choices {
+    grid-template-columns: 1fr;
+  }
+
+  .quiz-choice {
+    min-height: 58px;
+    font-size: 17px;
+  }
+
+  .quiz-nav button {
+    min-width: 0;
+    width: 100%;
+    font-size: 15px;
+  }
+}
+/* =========================================================
+   Quiz V2.2 Visual Upgrade
+========================================================= */
+
+.quiz-card {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 34px;
+  border-radius: 32px;
+  background: linear-gradient(180deg, #ffffff, rgba(255,255,255,.82));
+  border: 1px solid rgba(90,68,52,.08);
+  box-shadow: 0 16px 34px rgba(90,68,52,.10);
+}
+
+.quiz-top {
+  margin-bottom: 22px;
+}
+
+.quiz-progress {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  background: var(--active-soft);
+  color: var(--active-dark);
+  font-weight: 900;
+  font-size: 16px;
+}
+
+.quiz-progress-bar {
+  width: 100%;
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(90,68,52,.08);
+  overflow: hidden;
+}
+
+.quiz-progress-bar div {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--active-color);
+  transition: width .25s ease;
+}
+
+.quiz-instruction {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--active-dark);
+  margin: 22px 0;
+  line-height: 1.35;
+}
+
+.quiz-chinese-card,
+.quiz-english-card,
+.quiz-question-text {
+  margin: 20px 0 26px;
+  padding: 24px 28px;
+  border-radius: 28px;
+  background: var(--active-soft);
+  color: var(--active-dark);
+  text-align: center;
+  border: 1px solid rgba(90,68,52,.08);
+}
+
+.quiz-chinese-card .line {
+  justify-content: center;
+  margin: 0;
+}
+
+.quiz-pinyin {
+  font-size: 24px;
+  font-weight: 800;
+  color: #657a70;
+  margin-bottom: 4px;
+}
+
+.quiz-hanzi {
+  font-size: 54px;
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+.quiz-english-card {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.quiz-question-text {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.quiz-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.quiz-choice {
+  width: 100%;
+  min-height: 76px;
+  border-radius: 24px;
+  padding: 16px 20px;
+  font-size: 22px;
+  line-height: 1.35;
+  text-align: center;
+  background: #fff;
+  color: #4b3b35;
+  border: 2px solid rgba(90,68,52,.10);
+  box-shadow: 0 8px 18px rgba(90,68,52,.08);
+}
+
+.quiz-choice:hover {
+  transform: translateY(-2px);
+}
+
+.quiz-choice.correct {
+  background: #e7f6ed !important;
+  border-color: #74c993 !important;
+  color: #2f7a4e !important;
+}
+
+.quiz-choice.wrong {
+  background: #ffecec !important;
+  border-color: #e6a0a0 !important;
+  color: #a94343 !important;
+}
+
+.quiz-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.quiz-nav button {
+  min-width: 150px;
+  min-height: 50px;
+  font-size: 17px;
+}
+
+.quiz-nav button:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (max-width: 760px) {
+  .quiz-card {
+    padding: 20px 14px;
+    border-radius: 24px;
+  }
+
+  .quiz-instruction {
+    font-size: 22px;
+  }
+
+  .quiz-chinese-card,
+  .quiz-english-card,
+  .quiz-question-text {
+    padding: 18px 14px;
+    border-radius: 22px;
+  }
+
+  .quiz-pinyin {
+    font-size: 20px;
+  }
+
+  .quiz-hanzi {
+    font-size: 42px;
+  }
+
+  .quiz-english-card {
+    font-size: 26px;
+  }
+
+  .quiz-choices {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .quiz-choice {
+    min-height: 58px;
+    font-size: 18px;
+    border-radius: 18px;
+  }
+
+  .quiz-nav button {
+    width: 100%;
+    min-width: 0;
+  }
+}
+/* =========================================================
+   Quiz V2.3 Score + First Answer Only
+========================================================= */
+
+.quiz-choice:disabled {
+  cursor: default;
+  transform: none;
+}
+
+.quiz-feedback {
+  margin-top: 18px;
+  padding: 14px 18px;
+  border-radius: 18px;
+  font-size: 20px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.quiz-feedback.correct {
+  background: #e7f6ed;
+  color: #2f7a4e;
+}
+
+.quiz-feedback.wrong {
+  background: #fff0e8;
+  color: #9b5a37;
+}
+
+.quiz-result-card {
+  text-align: center;
+}
+
+.quiz-result-title {
+  font-size: 34px;
+  font-weight: 900;
+  color: var(--active-dark);
+  margin-bottom: 18px;
+}
+
+.quiz-score {
+  font-size: 76px;
+  font-weight: 900;
+  color: var(--active-dark);
+  line-height: 1;
+}
+
+.quiz-score-percent {
+  margin-top: 10px;
+  font-size: 30px;
+  font-weight: 900;
+  color: var(--active-color);
+}
+
+.quiz-result-message {
+  margin: 24px auto;
+  max-width: 620px;
+  font-size: 22px;
+  line-height: 1.5;
+  color: #5f514a;
+}
+
+.quiz-result-actions {
+  justify-content: center;
+}
+
+@media (max-width: 760px) {
+  .quiz-result-title {
+    font-size: 26px;
+  }
+
+  .quiz-score {
+    font-size: 56px;
+  }
+
+  .quiz-score-percent {
+    font-size: 24px;
+  }
+
+  .quiz-result-message {
+    font-size: 18px;
+  }
+}
+/* Lesson page compact header + global display tools */
+
+#lessonHero.lesson-hero {
+  padding: 16px 22px !important;
+  border-radius: 26px !important;
+}
+
+#lessonHero .line {
+  padding: 10px 18px !important;
+  border-radius: 20px !important;
+}
+
+#lessonHero .token-hanzi {
+  font-size: clamp(30px, 3vw, 44px) !important;
+}
+
+#lessonHero .token-pinyin {
+  font-size: clamp(15px, 1.5vw, 22px) !important;
+}
+
+#lessonHero div[style*="margin-top:26px"] {
+  margin-top: 14px !important;
+  font-size: 12px !important;
+}
+
+#lessonHero div[style*="margin-top:12px"] {
+  margin-top: 8px !important;
+  font-size: 15px !important;
+}
+
+.lesson-module-tabs {
+  max-width: 1180px;
+  margin: 18px auto 12px !important;
+}
+
+.lesson-display-tools {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin: 0 auto 18px;
+  padding: 0 10px;
+}
+
+.lesson-display-tools button {
+  min-width: 220px;
+  height: 46px;
+  font-size: 16px;
+}
+
+#lessonToolbar {
+  justify-content: center !important;
+}
+
+#lessonToolbar button {
+  min-width: 150px;
+}
+
+@media (max-width: 760px) {
+  .lesson-display-tools {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .lesson-display-tools button {
+    min-width: 0;
+    width: 100%;
+    font-size: 14px;
+  }
+}
+/* =========================================================
+   Reading Layout Clean Upgrade
+========================================================= */
+
+.reading-card {
+  position: relative;
+}
+
+.reading-card > .section-title {
+  justify-content: center;
+  font-size: 30px !important;
+  margin-bottom: 12px !important;
+}
+
+/* 拼音/翻译变成右侧小工具 */
+.reading-header-tools {
+  position: absolute;
+  top: 22px;
+  right: 26px;
+  display: flex;
+  gap: 8px;
+}
+
+.reading-header-tools button {
+  min-width: auto !important;
+  height: 34px !important;
+  padding: 0 12px !important;
+  font-size: 13px !important;
+  border-radius: 999px !important;
+  background: rgba(255,255,255,.78) !important;
+  color: var(--active-dark) !important;
+  box-shadow: 0 4px 12px rgba(90,68,52,.08) !important;
+}
+
+/* Level A/B/C 上移到 Reading 标题下面，并居中 */
+#lessonToolbar {
+  position: static !important;
+  display: flex !important;
+  justify-content: center !important;
+  gap: 14px !important;
+  margin: 8px auto 24px !important;
+  padding: 10px 0 !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+}
+
+/* Level 按钮变成小色块，和上面大模块区分 */
+#lessonToolbar button {
+  min-width: 140px !important;
+  height: 42px !important;
+  padding: 0 18px !important;
+  font-size: 15px !important;
+  border-radius: 16px !important;
+  box-shadow: none !important;
+  border: 2px solid rgba(90,68,52,.08) !important;
+  background: var(--active-soft) !important;
+  color: var(--active-dark) !important;
+}
+
+/* 三个 Level 用不同透明度区分 */
+#lessonToolbar button:nth-child(1) {
+  background: rgba(107,168,146,.16) !important;
+  color: #356b58 !important;
+}
+
+#lessonToolbar button:nth-child(2) {
+  background: rgba(216,170,83,.18) !important;
+  color: #8a651e !important;
+}
+
+#lessonToolbar button:nth-child(3) {
+  background: rgba(111,143,199,.18) !important;
+  color: #3f5f9a !important;
+}
+
+#lessonToolbar button.active {
+  color: #fff !important;
+  transform: none !important;
+}
+
+#lessonToolbar button:nth-child(1).active {
+  background: #6BA892 !important;
+}
+
+#lessonToolbar button:nth-child(2).active {
+  background: #D8AA53 !important;
+}
+
+#lessonToolbar button:nth-child(3).active {
+  background: #6F8FC7 !important;
+}
+
+/* 模块按钮保持大，但和工具按钮区别明显 */
+.lesson-module-tabs {
+  max-width: 980px !important;
+  margin: 18px auto 18px !important;
+  gap: 18px !important;
+}
+
+.lesson-module-btn {
+  min-height: 56px !important;
+  font-size: 20px !important;
+  border-radius: 22px !important;
+}
+
+/* 手机端 */
+@media (max-width: 760px) {
+  .reading-card > .section-title {
+    justify-content: flex-start;
+    font-size: 24px !important;
+  }
+
+  .reading-header-tools {
+    position: static;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+
+  .reading-header-tools button {
+    flex: 1;
+    height: 38px !important;
+    font-size: 13px !important;
+  }
+
+  #lessonToolbar {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
     gap: 8px !important;
-    z-index: auto !important;
   }
 
-  .sentence-audio-btn,
-  .sentence-translate-btn {
-    width: 32px !important;
-    height: 32px !important;
-    min-width: 32px !important;
-    font-size: 14px !important;
+  #lessonToolbar button {
+    min-width: 0 !important;
+    width: 100% !important;
+    font-size: 13px !important;
+    padding: 0 6px !important;
   }
+}
+/* Lesson top module row + small global tools */
+
+.lesson-module-tabs {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 1fr auto !important;
+  align-items: center !important;
+  max-width: 1180px !important;
+  margin: 18px auto 22px !important;
+  gap: 14px !important;
+}
+
+.lesson-global-tools {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.lesson-global-tools button {
+  min-width: auto !important;
+  height: 34px !important;
+  padding: 0 12px !important;
+  font-size: 13px !important;
+  border-radius: 999px !important;
+  background: rgba(255,255,255,.65) !important;
+  color: var(--active-dark) !important;
+  border: 1px solid rgba(90,68,52,.08) !important;
+  box-shadow: 0 4px 10px rgba(90,68,52,.06) !important;
+  opacity: .75;
+}
+
+.lesson-global-tools button:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+/* Reading内部不再需要右侧工具 */
+.reading-header-tools,
+.lesson-display-tools {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  .lesson-module-tabs {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  .lesson-global-tools {
+    grid-column: 1 / -1;
+    justify-content: center;
+    margin-top: 4px;
+  }
+
+  .lesson-global-tools button {
+    height: 32px !important;
+    font-size: 12px !important;
+  }
+}
+/* Home brand refinement */
+
+.brand-tag {
+  font-size: 22px !important;
+  padding: 10px 22px !important;
+  letter-spacing: 1.5px !important;
+}
+
+.hero-title-final {
+  font-size: clamp(44px, 5vw, 70px) !important;
+  letter-spacing: 6px !important;
+}
+
+.hero-subtitle-final {
+  font-size: clamp(17px, 1.7vw, 23px) !important;
+  letter-spacing: 7px !important;
+}
+
+.library-about {
+  max-width: 1180px;
+  margin: 24px auto 0;
+  padding: 14px 22px;
+  border-radius: 18px;
+  background: rgba(255,255,255,.55);
+  color: rgba(90,68,52,.62);
+  font-size: 13px;
+  line-height: 1.8;
+  text-align: center;
+  box-shadow: 0 8px 18px rgba(90,68,52,.05);
+}
+
+@media (max-width: 760px) {
+  .brand-tag {
+    font-size: 15px !important;
+    padding: 7px 14px !important;
+  }
+
+  .hero-title-final {
+    font-size: 44px !important;
+  }
+
+  .library-about {
+    font-size: 11px;
+    text-align: left;
+  }
+}
+.back-haoteach{
+    position:absolute;
+    top:22px;
+    left:22px;
+
+    display:flex;
+    align-items:center;
+
+    padding:10px 18px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.92);
+
+    color:#5b4a42;
+
+    font-size:15px;
+    font-weight:700;
+
+    text-decoration:none;
+
+    box-shadow:0 8px 18px rgba(0,0,0,.08);
+
+    transition:.25s;
+    z-index:10;
+}
+
+.back-haoteach:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 24px rgba(0,0,0,.12);
 }
