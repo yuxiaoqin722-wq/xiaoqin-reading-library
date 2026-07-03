@@ -4,21 +4,21 @@ const BOOK_THEMES = {
     soft: '#e9f5ef',
     dark: '#356b58',
     icon: '🌱',
-    subtitle: 'Fresh start · Basic words and simple sentences'
+    subtitle: 'Pinyin · Greetings · Numbers'
   },
   '1B': {
     color: '#6F8FC7',
     soft: '#edf3ff',
     dark: '#3f5f9a',
     icon: '📘',
-    subtitle: 'Explore more · Questions, answers and short conversations'
+    subtitle: 'Family · Time · Dates'
   },
   '1C': {
     color: '#D88A63',
     soft: '#fff0e8',
     dark: '#8f4f32',
     icon: '🎤',
-    subtitle: 'Express yourself · Hobbies, feelings and personal ideas'
+    subtitle: 'Likes · Weather · Activities'
   },
 
   '2A': {
@@ -26,21 +26,21 @@ const BOOK_THEMES = {
     soft: '#f1edff',
     dark: '#5b4a91',
     icon: '🏫',
-    subtitle: 'School life · Subjects, time and daily learning'
+    subtitle: 'School · Hobbies · Daily Life'
   },
   '2B': {
     color: '#5FA8C7',
     soft: '#e8f7ff',
     dark: '#2f6f8f',
     icon: '🕒',
-    subtitle: 'Daily routine · Time, schedule and simple plans'
+    subtitle: 'Places · Weekend · Travel'
   },
   '2C': {
     color: '#D6A84F',
     soft: '#fff6df',
     dark: '#8a651d',
     icon: '📚',
-    subtitle: 'Learning more · School activities and conversations'
+    subtitle: 'Shopping · Payment · Choices'
   },
 
   '3A': {
@@ -48,21 +48,21 @@ const BOOK_THEMES = {
     soft: '#eef8ea',
     dark: '#456b38',
     icon: '🌿',
-    subtitle: 'Growing skills · Longer sentences and personal expression'
+    subtitle: 'Skills · Directions · Opinions'
   },
   '3B': {
     color: '#C77A9B',
     soft: '#fff0f6',
     dark: '#8a3f5f',
     icon: '🗣️',
-    subtitle: 'Communication · Opinions, reasons and short talks'
+    subtitle: 'Culture · Study · Daily Talk'
   },
   '3C': {
     color: '#8A9FD6',
     soft: '#eef2ff',
     dark: '#4e6098',
     icon: '🧭',
-    subtitle: 'Explore topics · Places, culture and daily life'
+    subtitle: 'Stories · Feelings · Expression'
   },
 
   '4A': {
@@ -70,21 +70,21 @@ const BOOK_THEMES = {
     soft: '#f0f1f8',
     dark: '#464a68',
     icon: '🚀',
-    subtitle: 'Advanced start · Paragraph reading and structured speaking'
+    subtitle: 'Requests · Reasons · Comparison'
   },
   '4B': {
     color: '#B47A5A',
     soft: '#fff1e8',
     dark: '#73462f',
     icon: '🏮',
-    subtitle: 'Culture and stories · Reading with more details'
+    subtitle: 'Plans · Experience · Communication'
   },
   '4C': {
     color: '#4F9D8F',
     soft: '#e8f8f5',
     dark: '#2f6a60',
     icon: '🌏',
-    subtitle: 'Confident reader · Projects, culture and presentation'
+    subtitle: 'Review · Projects · Real-life Tasks'
   }
 };
 
