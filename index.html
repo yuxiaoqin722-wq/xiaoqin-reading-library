@@ -8,8 +8,10 @@
 </head>
 <body>
   <main class="page">
+
    <section class="hero" id="homeHero">
-  <div class="brand-tag">Chinese Reading Library</div>
+    <a href="https://haoteach.com" class="back-haoteach">← Back to HaoTeach</a>
+  <div class="brand-tag">Silk Road Graded Chinese Reading Library</div>
 
   <h1 class="hero-title-final">
     跨越丝路
@@ -24,9 +26,9 @@
       <div class="toolbar" id="bookFilters"></div>
       <div id="bookSections"></div>
 
-      <div class="teacher-note">
-        <strong>Teacher note:</strong> This library is data-driven. To add a new lesson, add one lesson file in the <code>lessons</code> folder and register it in <code>data.js</code>.
-      </div>
+      <div class="library-about">
+  本阅读系统依据《跨越丝路》教材内容开发，结合 HSK 词汇进阶、可理解输入、广泛阅读和任务型语言教学理念设计，帮助初学者逐步提升中文阅读理解与表达能力。
+</div>
     </section>
 
     <section id="lessonView" class="hidden">
@@ -37,38 +39,59 @@
 
       <section class="lesson-hero" id="lessonHero"></section>
 
-      <section class="card">
-        <h2 class="section-title">🔑 Key Words & Sentences</h2>
-        <p class="student-tip">Tap the words or sentences to listen and practice pronunciation before reading.</p>
-        <div class="key-grid" id="keyWords"></div>
-        <div class="sentence-bank" id="keySentences"></div>
-      </section>
+     <div class="lesson-module-tabs">
+  <button class="lesson-module-btn active" onclick="showLessonModule('reading', this)">
+    📖 Reading
+  </button>
 
-      <section class="card reading-card">
-        <h2 class="section-title">📖 Reading</h2>
-        <div class="toolbar" id="lessonToolbar">
-        <button class="active" onclick="showLevel('A', this)">Level A 初级</button>
-        <button onclick="showLevel('B', this)">Level B 中级</button>
-        <button onclick="showLevel('C', this)">Level C 高级</button>
-        <button onclick="togglePinyin()">拼音 Pinyin ON / OFF</button>
-        <button onclick="toggleTranslation()">🌍 Translation ON / OFF</button>
-      </div>
-        <div class="reading-toolbar">
-          <div class="reading-toolbar-left">
-            <button onclick="speakReading()">🔊 听 Listen</button>
-          </div>
-        </div>
-        <div id="reading" class="reading-box"></div>
-        <div id="meaningPop" class="meaning-pop"></div>
-      </section>
+  <button class="lesson-module-btn" onclick="showLessonModule('words', this)">
+    🔑 Words
+  </button>
 
-      <section class="card">
-        <h2 class="section-title">🧩 Practice：小练习</h2>
-        <div class="practice-grid" id="practiceGrid"></div>
-      </section>
+  <button class="lesson-module-btn" onclick="showLessonModule('practice', this)">
+    📝 Quiz
+  </button>
 
-      <section class="card challenge" id="challengeBox"></section>
-    </section>
+  <div class="lesson-global-tools">
+    <button onclick="togglePinyin()">拼音</button>
+    <button onclick="toggleTranslation()">🌍 Translation</button>
+  </div>
+</div>
+
+<section class="card lesson-module hidden" id="wordsModule">
+  <h2 class="section-title">🔑 Key Words & Sentences</h2>
+  <p class="student-tip">Tap the words or sentences to listen and practice pronunciation before reading.</p>
+  <div class="key-grid" id="keyWords"></div>
+  <div class="sentence-bank" id="keySentences"></div>
+</section>
+
+<section class="card reading-card lesson-module" id="readingModule">
+  <h2 class="section-title">📖 Reading</h2>
+  
+  <div class="toolbar" id="lessonToolbar">
+    <button class="active" onclick="showLevel('A', this)">Level A 初级</button>
+    <button onclick="showLevel('B', this)">Level B 中级</button>
+    <button onclick="showLevel('C', this)">Level C 高级</button>
+    
+  </div>
+
+  <div class="reading-toolbar">
+    <div class="reading-toolbar-left">
+      <button onclick="speakReading()">🔊 听 Listen</button>
+    </div>
+  </div>
+
+  <div id="reading" class="reading-box"></div>
+  <div id="meaningPop" class="meaning-pop"></div>
+</section>
+
+<section class="card lesson-module hidden" id="practiceModule">
+  <h2 class="section-title">🧩 Practice：小练习</h2>
+  <div class="practice-grid" id="practiceGrid"></div>
+</section>
+
+
+</section>
 
     <div class="footer-note">跨越丝路 · 分层 Reading Library</div>
     <div class="signature">
