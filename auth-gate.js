@@ -1,4 +1,3 @@
-```javascript
 /* haoteach 登录门槛 auth-gate.js —— 放在网站根目录,每页引用一行即可 */
 (function () {
   var SB_URL = 'https://pqwgottflvwbyhjipcgb.supabase.co';
@@ -77,4 +76,3 @@
   function boot() { document.documentElement.style.overflow = 'hidden'; ov = inject(); ensureSupabase(start); }
   if (document.body) boot(); else document.addEventListener('DOMContentLoaded', boot);
 })();
-```
