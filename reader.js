@@ -103,7 +103,9 @@ function renderLessonCard(lesson, theme) {
       ">
     <button class="copy-link-btn"
   onclick="event.preventDefault(); event.stopPropagation(); copyLessonLink('${lesson.id}', this)"
-  title="Copy lesson link">🔗</button>
+  title="Copy lesson link">
+  🔗 Copy Link
+</button>
 
       <div class="lesson-number"
         style="
