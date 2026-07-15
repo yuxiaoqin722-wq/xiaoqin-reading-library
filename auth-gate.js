@@ -24,20 +24,6 @@
     ]);
   }
 
-  function readLocal() {
-    try {
-      var raw = localStorage.getItem('haoteach-auth');
-      if (!raw) return null;
-
-      var o = JSON.parse(raw);
-      var s = o.currentSession || o;
-
-      if (s && s.user && s.refresh_token) return s;
-    } catch (e) {}
-
-    return null;
-  }
-
   function inject() {
     var st = document.createElement('style');
     st.textContent = css;
@@ -154,36 +140,43 @@
   }
 
   async function tryHaoteachSSO() {
-    var tokens = getHaoteachSSOTokens();
+  var tokens = getHaoteachSSOTokens();
 
-    if (!tokens) return null;
+  if (!tokens) return null;
 
-    try {
-      var res = await _t(
-        sb.auth.setSession({
-          access_token: tokens.access_token,
-          refresh_token: tokens.refresh_token
-        }),
-        12000
-      );
+  /*
+   * token 一旦被当前页面读取，就立即从地址栏删除。
+   * 即使后面的 setSession 失败，也不能让 token 留在地址栏中。
+   */
+  clearHaoteachSSOHash();
 
-      clearHaoteachSSOHash();
+  try {
+    var res = await _t(
+      sb.auth.setSession({
+        access_token: tokens.access_token,
+        refresh_token: tokens.refresh_token
+      }),
+      15000
+    );
 
-      if (res.error) {
-        console.error('Haoteach SSO setSession error:', res.error);
-        return null;
-      }
-
-      var s = res && res.data && res.data.session;
-      if (s && s.user) return s;
-
-      return null;
-    } catch (e) {
-      clearHaoteachSSOHash();
-      console.error('Haoteach SSO failed:', e);
+    if (res.error) {
+      console.error('Haoteach SSO setSession error:', res.error);
       return null;
     }
+
+    var session = res && res.data && res.data.session;
+
+    if (!session || !session.user) {
+      console.error('Haoteach SSO did not return a valid session');
+      return null;
+    }
+
+    return session;
+  } catch (e) {
+    console.error('Haoteach SSO failed:', e);
+    return null;
   }
+}
 
   async function submit() {
     var email = q('agEmail').value.trim();
@@ -282,40 +275,64 @@
     };
   }
 
-  async function start() {
-    if (!window.supabase || !window.supabase.createClient) {
-      console.error('supabase-js not loaded');
+ async function start() {
+  if (!window.supabase || !window.supabase.createClient) {
+    console.error('supabase-js not loaded');
+    showGate();
+    return;
+  }
+
+  sb = window.supabase.createClient(SB_URL, SB_KEY, CFG);
+
+  wire();
+
+  /*
+   * 第一优先级：
+   * 检查是不是从 Haoteach 带着 ht_at / ht_rt 跳转过来的。
+   */
+  var ssoSession = await tryHaoteachSSO();
+
+  if (ssoSession && ssoSession.user) {
+    hideGate(ssoSession.user);
+  } else {
+    /*
+     * 第二优先级：
+     * 让 Supabase 自己读取并刷新本域名保存的 session。
+     * 不再直接读取 localStorage 并盲目信任旧数据。
+     */
+    try {
+      var res = await _t(sb.auth.getSession(), 15000);
+      var session = res && res.data && res.data.session;
+
+      if (res && res.error) {
+        console.error('Get session error:', res.error);
+      }
+
+      if (session && session.user) {
+        hideGate(session.user);
+      } else {
+        showGate();
+      }
+    } catch (e) {
+      console.error('Session check failed:', e);
+      showGate();
+    }
+  }
+
+  sb.auth.onAuthStateChange(function (event, session) {
+    if (session && session.user) {
+      hideGate(session.user);
       return;
     }
 
-    sb = window.supabase.createClient(SB_URL, SB_KEY, CFG);
-
-    wire();
-
-    var ssoSession = await tryHaoteachSSO();
-
-    if (ssoSession && ssoSession.user) {
-      hideGate(ssoSession.user);
-    } else {
-      var ls = readLocal();
-
-      if (ls) {
-        hideGate(ls.user);
-      } else {
-        try {
-          var res = await _t(sb.auth.getSession(), 10000);
-          var s = res && res.data && res.data.session;
-
-          if (s && s.user) {
-            hideGate(s.user);
-          } else {
-            showGate();
-          }
-        } catch (e) {
-          showGate();
-        }
-      }
+    if (
+      event === 'SIGNED_OUT' ||
+      event === 'USER_DELETED'
+    ) {
+      showGate();
     }
+  });
+}
 
     sb.auth.onAuthStateChange(function (_e, session) {
       if (session && session.user) {
